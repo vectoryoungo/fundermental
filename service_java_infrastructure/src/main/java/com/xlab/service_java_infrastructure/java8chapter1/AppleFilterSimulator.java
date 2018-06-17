@@ -12,21 +12,74 @@
  **/
 package com.xlab.service_java_infrastructure.java8chapter1;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class AppleFilterSimulator {
 
     public static void main(String[] args) {
         List<Apple> inventory = Arrays.asList(new Apple(80,"green"),
+                new Apple(155,"brown"),
+                new Apple(80,"grey"),
                 new Apple(155, "green"),
                 new Apple(120, "red"));
 
-        System.out.println(filterApples(inventory,Apple::isGreenApple));
-        System.out.println(filterApples(inventory,Apple::isHeavyApple));
+        //System.out.println(filterApples(inventory,Apple::isGreenApple));
+        //System.out.println(filterApples(inventory,Apple::isHeavyApple));
+        //System.out.println(filterApples(inventory,(Apple a) -> "green".equals(a.getColor())));
+        //System.out.println(filterApples(inventory,(Apple a) -> a.getWeight() > 150));
+        //System.out.println(filterApples(inventory,(Apple a) -> a.getWeight() < 80 || "brown".equals(a.getColor())));
 
+        //顺序处理
+        List<Apple> heavyAppples = inventory.stream().filter((Apple a)->a.getWeight()>150).collect(Collectors.toList());
+        System.out.println(heavyAppples.get(0).toString());
+
+        List<Apple> heavyAppless = inventory.parallelStream().filter((Apple a)->a.getWeight()>150).collect(Collectors.toList());
+        System.out.println(heavyAppless.get(0).toString());
+
+        List<Map<String,Integer>> light = new ArrayList<>();
+        List<Map<String,Integer>> weight = new ArrayList<>();
+
+
+
+        inventory.parallelStream().forEach(apple -> {
+            if (apple.getWeight() == 80){
+
+                Map<String,Integer> lightApples = new HashMap<>();
+                lightApples.put(apple.getColor(),apple.getWeight());
+                light.add(lightApples);
+            }else if (apple.getWeight() == 155){
+                Map<String,Integer> weightApples = new HashMap<>();
+                weightApples.put(apple.getColor(),apple.getWeight());
+                weight.add(weightApples);
+            }
+        });
+
+
+        System.out.println(" light size " + light.size());
+        System.out.println(" weight size " + weight.size());
+
+        /*for (Map<String,Integer> lightMap:light){
+
+           for (Map.Entry<String,Integer> entry:lightMap.entrySet()){
+               System.out.println(" light key=" + entry.getKey() + " light value=" + entry.getValue());
+            }
+        }
+
+        for (Map<String,Integer> weightMap:weight) {
+            for (Map.Entry<String,Integer> entry:weightMap.entrySet()) {
+                System.out.println(" weight key=" + entry.getKey() + " weight value =" + entry.getValue());
+            }
+        }
+
+        Map<Integer,List<Apple>> map = inventory.parallelStream().collect(Collectors.groupingBy(Apple::getWeight));
+        for (Map.Entry<Integer,List<Apple>> entry:map.entrySet()) {
+            System.out.println("group by key = " +entry.getKey() + " value = " + entry.getValue().size());
+        }*/
+
+        List<Apple> redApplesList = filter(inventory,(Apple apple)->"red".equals(apple.getColor()));
+        System.out.println(redApplesList.get(0).toString());
     }
 
     /**
@@ -70,6 +123,16 @@ public class AppleFilterSimulator {
         for (Apple apple: inventory){
             if (p.test(apple)) {
                 result.add(apple);
+            }
+        }
+        return result;
+    }
+
+    public static <T> List<T> filter(List<T> list, Predicate<T> p){
+        List<T> result = new ArrayList<>();
+        for(T e: list){
+            if(p.test(e)){
+                result.add(e);
             }
         }
         return result;
