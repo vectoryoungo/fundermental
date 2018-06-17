@@ -17,6 +17,7 @@ import sun.jvm.hotspot.debugger.ThreadAccess;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class AppleSortSimulator {
 
@@ -59,8 +60,6 @@ public class AppleSortSimulator {
         process(r1);
         process(r2);
         process(()->System.out.println("Hello World 3"));
-
-
     }
 
     public static void process(Runnable r){

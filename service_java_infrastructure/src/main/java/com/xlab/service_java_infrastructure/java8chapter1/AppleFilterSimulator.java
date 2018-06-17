@@ -80,6 +80,12 @@ public class AppleFilterSimulator {
 
         List<Apple> redApplesList = filter(inventory,(Apple apple)->"red".equals(apple.getColor()));
         System.out.println(redApplesList.get(0).toString());
+        Predicate<Apple> applePredicat = (Apple a)->a.getColor().equals("red");
+        Predicate<Apple> redAndHeavyApple = applePredicat.and(a -> a.getWeight() > 100);
+        List<Apple> apples = filterApples(inventory,redAndHeavyApple);
+        for (Apple apple:apples) {
+            System.out.println(" apple is " + apple);
+        }
     }
 
     /**
