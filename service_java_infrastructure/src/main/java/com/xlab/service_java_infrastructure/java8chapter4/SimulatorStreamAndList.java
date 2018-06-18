@@ -142,6 +142,15 @@ public class SimulatorStreamAndList {
                 System.out.println("can be divided is " + num);
             }
         }
+
+        if(menu.stream().anyMatch(Dish::isVegetarian)){
+            System.out.println("The menu is (somewhat) vegetarian friendly!!");
+        }
+
+        //check is all dish's calories all lower than 1000
+        boolean isHealthy = menu.stream()
+                .allMatch(d -> d.getCalories() < 1000);
+        System.out.println(isHealthy);
     }
 }
 
