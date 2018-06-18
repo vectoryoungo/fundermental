@@ -14,6 +14,7 @@ package com.xlab.service_java_infrastructure.java8chapter4;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -151,6 +152,18 @@ public class SimulatorStreamAndList {
         boolean isHealthy = menu.stream()
                 .allMatch(d -> d.getCalories() < 1000);
         System.out.println(isHealthy);
+
+        int sum = numbers.stream().reduce(0, (a, b) -> a + b);
+        System.out.println(sum);
+        Optional<Integer> max = numbers.stream().reduce(Integer::max);
+
+        System.out.println("max is " + max.get());
+        Optional<Integer> min = numbers.stream().reduce(Integer::min);
+        System.out.println("min is " + min.get());
+        int count = menu.stream()
+                .map(d -> 1)
+                .reduce(0, (a, b) -> a + b);
+        System.out.println("sum count is " + count);
     }
 }
 
