@@ -14,8 +14,14 @@ package com.xlab.service_java_infrastructure.java8chapter5;
 
 import com.xlab.service_java_infrastructure.java8chapter4.Dish;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.joining;
@@ -126,6 +132,84 @@ public class BestPractiseStreamUse {
                 .sum();
         System.out.println("optimized data value " + caloriesOptimized);
         System.out.println(" optimized data value takes " + (System.currentTimeMillis() - startCaloriesWithOptimized));
+        //convert back to object stream
+        //it means convert raw stream to a normal stream
+        IntStream intStream = menu.stream().mapToInt(Dish::getCalories);
+        Stream<Integer> stream = intStream.boxed();
+
+        stream.forEach(integer1 -> {
+            System.out.println("value of stream content is " + integer1);
+        });
+
+        //how to distinct no element stream and the biggest value is 0 stream
+        OptionalInt maxCalories = menu.stream()
+                .mapToInt(Dish::getCalories)
+                .max();
+        System.out.println("optional max " + maxCalories.getAsInt());
+        //process without value
+        maxCalories.orElse(1);
+
+        IntStream evenNumbers = IntStream.rangeClosed(1, 100)
+                .filter(n -> n % 2 == 0);
+        System.out.println("after filter " + evenNumbers.count());
+        //filter(b -> Math.sqrt(a*a + b*b) % 1 == 0)
+        System.out.println(Math.sqrt(8));
+        System.out.println(Math.sqrt(4));
+        /*IntStream.rangeClosed(1, 100)
+                .filter(b -> Math.sqrt(a*a + b*b) % 1 == 0)
+                .boxed()
+                .map(b -> new int[]{a, b, (int) Math.sqrt(a * a + b * b)});*/
+        Stream<int[]> pythagoreanTriples =
+                IntStream.rangeClosed(1, 100).boxed()
+                        .flatMap(a ->
+                                IntStream.rangeClosed(a, 100)
+                                        .filter(b -> Math.sqrt(a*a + b*b) % 1 == 0)
+                                        .mapToObj(b ->
+                                                new int[]{a, b, (int)Math.sqrt(a * a + b * b)})
+                        );
+        pythagoreanTriples.limit(5)
+                .forEach(t ->
+                        System.out.println(t[0] + ", " + t[1] + ", " + t[2]));
+        Stream<double[]> pythagoreanTriples2 =
+                IntStream.rangeClosed(1, 100).boxed()
+                        .flatMap(a ->
+                                IntStream.rangeClosed(a, 100)
+                                        .mapToObj(
+                                                b -> new double[]{a, b, Math.sqrt(a*a + b*b)})
+                                        .filter(t -> t[2] % 1 == 0));
+        pythagoreanTriples2.limit(10).forEach(t-> System.out.println("after optimized " + t[0] + ", " + t[1] + ", " + t[2]));
+
+        //from value to create unLimit stream
+        Stream<String> streamAlphabet = Stream.of("Java 8 ", "Lambdas ", "In ", "Action");
+        streamAlphabet.map(String::toUpperCase).forEach(System.out::println);
+        Stream<String> emptyStream = Stream.empty();
+        emptyStream.forEach(string-> System.out.println("empty String " + string));
+
+        //create stream from array
+        int[] numbers = {2, 3, 5, 7, 11, 13};
+        int sum = Arrays.stream(numbers).sum();
+        System.out.println(" array sum is " + sum);
+
+        //create stream from a file
+        long uniqueWords = 0;
+        try(Stream<String> lines =
+                    Files.lines(Paths.get("data.txt"), Charset.defaultCharset())){
+            uniqueWords = lines.flatMap(line -> Arrays.stream(line.split(" ")))
+                    .distinct()
+                    .count();
+            System.out.println(" unique words " + uniqueWords);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
+        //generate stream from a function
+        Stream.iterate(0, n -> n + 2)
+                .limit(10)
+                .forEach(System.out::println);
+        Stream.generate(Math::random)
+                .limit(5)
+                .forEach(System.out::println);
     }
 }
 
