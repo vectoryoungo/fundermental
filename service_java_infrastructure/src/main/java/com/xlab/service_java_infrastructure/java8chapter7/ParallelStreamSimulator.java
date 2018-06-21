@@ -104,8 +104,41 @@ public class ParallelStreamSimulator {
         System.out.println("Parallel range sum done in:" +
                 measureSumPerf(ParallelStreamSimulator::parallelRangedSum, 10_000_000) +
                 " msecs");
+
+        System.out.println("SideEffect parallel sum done in: " + measureSumPerf(ParallelStreamSimulator::sideEffectParallelSum, 10_000_000L) +"msecs" );
     }
 
+    //本质上就是顺序的。每
+    //次访问total都会出现数据竞争。如果你尝试用同步来修复，那就完全失去并行的意义了
+    public static long sideEffectSum(long n) {
+        Accumulator accumulator = new Accumulator();
+        LongStream.rangeClosed(1, n).forEach(accumulator::add);
+        return accumulator.total;
+    }
+
+    //并行版本
+    //每次执行都会返回不同的结果，都离正确值
+    //50000005000000差很远。这是由于多个线程在同时访问累加器，执行total += value，而这
+    //一句虽然看似简单，却不是一个原子操作。问题的根源在于，forEach中调用的方法有副作用，
+    //它会改变多个线程共享的对象的可变状态。要是你想用并行Stream又不想引发类似的意外，就
+    //必须避免这种情况。
+    //Result: 11021106057211
+    //Result: 8189786188194
+    //Result: 15524859939398
+    //Result: 6744529672156
+    //Result: 9384901657904
+    //Result: 7438031247082
+    //Result: 7105082062443
+    //Result: 5481882028017
+    //Result: 9028509574975
+    //Result: 6025314934521
+    // 记住要避免共享可变状态
+
+    public static long sideEffectParallelSum(long n) {
+        Accumulator accumulator = new Accumulator();
+        LongStream.rangeClosed(1, n).parallel().forEach(accumulator::add);
+        return accumulator.total;
+    }
 
 }
 
