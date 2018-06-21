@@ -61,7 +61,7 @@ public class PrimeNumbersCollector implements Collector<Integer,
         return Collections.unmodifiableSet(EnumSet.of(IDENTITY_FINISH));
     }
 
-    public Map<Boolean, List<Integer>>
+    public static Map<Boolean, List<Integer>>
     partitionPrimesWithCustomCollector(int n) {
         return IntStream.rangeClosed(2, n).boxed()
                 .collect(new PrimeNumbersCollector());
