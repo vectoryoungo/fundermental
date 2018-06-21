@@ -12,6 +12,8 @@
  **/
 package com.xlab.service_java_infrastructure.java8chapter7;
 
+import java.util.function.Function;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 public class ParallelStreamSimulator {
@@ -54,11 +56,54 @@ public class ParallelStreamSimulator {
      * 行，因为最后调用的是它。
      * **/
 
+    //测量对前n个自然数求和的函数的性能
+    public static long measureSumPerf(Function<Long, Long> adder, long n) {
+        long fastest = Long.MAX_VALUE;
+        for (int i = 0; i < 10; i++) {
+            long start = System.nanoTime();
+            long sum = adder.apply(n);
+            long duration = (System.nanoTime() - start) / 1_000_000;
+            System.out.println("Result: " + sum);
+            if (duration < fastest) fastest = duration;
+        }
+        return fastest;
+    }
+
+    //LongStream.rangeClosed的方法代替iterator,LongStream.rangeClosed直接产生原始类型的long数字，没有装箱拆箱的开销
+    //LongStream.rangeClosed会生成数字范围，很容易拆分为独立的小块。例如，范围1~20可分为1~5、6~10、11~15和16~20。
+    public static long rangedSum(long n) {
+        return LongStream.rangeClosed(1, n)
+                .reduce(0L, Long::sum);
+    }
+
+    //并行流版本的没有装箱拆箱的
+    public static long parallelRangedSum(long n) {
+        return LongStream.rangeClosed(1, n)
+                .parallel()
+                .reduce(0L, Long::sum);
+    }
+
+
     public static void main(String[] args) {
-        long start = System.currentTimeMillis();
-        long result = iterativeSum(1000);
-        System.out.println("result " + result);
-        System.out.println(" it takes " + (System.currentTimeMillis()-start) + " million seconds");
+        //long start = System.currentTimeMillis();
+        //long result = iterativeSum(1000);
+        //System.out.println("result " + result);
+        //System.out.println(" it takes " + (System.currentTimeMillis()-start) + " million seconds");
+
+        System.out.println("Sequential sum done in:" +
+                measureSumPerf(ParallelStreamSimulator::sequentialSum, 10_000_000) + " msecs");
+        System.out.println("Iterative sum done in:" +
+                measureSumPerf(ParallelStreamSimulator::iterativeSum, 10_000_000) + " msecs");
+        System.out.println("Parallel sum done in: " +
+                measureSumPerf(ParallelStreamSimulator::parallelSum, 10_000_000) + " msecs" );//此处并行反而更慢，
+        // 因为iterate生成的是装箱的对象，必须拆箱成数字才能求和，我们很难把iterate分成多个独立块来并行执行。这意味着，在这个特定情况下
+        //整张数字列表在归纳过
+        //程开始时没有准备好，因而无法有效地把流划分为小块来并行处理。把流标记成并行，你其实是
+        //给顺序处理增加了开销，它还要把每次求和操作分到一个不同的线程上
+        System.out.println("LongStream sum done in: " + measureSumPerf(ParallelStreamSimulator::rangedSum,10_000_000)+ " msecs" );
+        System.out.println("Parallel range sum done in:" +
+                measureSumPerf(ParallelStreamSimulator::parallelRangedSum, 10_000_000) +
+                " msecs");
     }
 
 
