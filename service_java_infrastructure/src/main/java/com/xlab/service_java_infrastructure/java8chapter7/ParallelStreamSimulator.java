@@ -106,6 +106,8 @@ public class ParallelStreamSimulator {
                 " msecs");
 
         System.out.println("SideEffect parallel sum done in: " + measureSumPerf(ParallelStreamSimulator::sideEffectParallelSum, 10_000_000L) +"msecs" );
+        System.out.println("ForkJoin sum done in: " + measureSumPerf(
+                ForkJoinSumCalculator::forkJoinSum, 10_000_000) + " msecs" );
     }
 
     //本质上就是顺序的。每
