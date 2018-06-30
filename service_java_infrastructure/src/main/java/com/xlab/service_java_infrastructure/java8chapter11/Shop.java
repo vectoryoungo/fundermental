@@ -12,6 +12,8 @@
  **/
 package com.xlab.service_java_infrastructure.java8chapter11;
 
+import org.springframework.expression.spel.ast.FunctionReference;
+
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
@@ -50,6 +52,11 @@ public class Shop {
         }).start();
 
         return future;
+    }
+
+    //一行语句重写getPriceAsync方法
+    public Future<Double> getPriceAsyncPromote(String product) {
+        return CompletableFuture.supplyAsync(()->calculatePrice(product));
     }
 }
 

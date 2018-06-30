@@ -12,11 +12,19 @@
  **/
 package com.xlab.service_java_infrastructure.java8chapter11;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.Future;
 
 public class AsynSimlulator {
 
     public static void main(String[] args) {
+
+        List<Shop> shops = Arrays.asList(new Shop("BestPrice"),
+                new Shop("LetsSaveBig"),
+                new Shop("MyFavoriteShop"),
+                new Shop("BuyItAll"));
+
         Shop shop = new Shop("BestBuy");
         long start = System.nanoTime();
         Future<Double> futurePrice = shop.getPriceAsync("pork");
