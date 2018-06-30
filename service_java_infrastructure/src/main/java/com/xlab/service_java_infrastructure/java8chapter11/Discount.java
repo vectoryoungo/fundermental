@@ -36,7 +36,7 @@ public class Discount {
     //服务响应的延迟
     private static double apply(double price, Code code) {
         delay();
-        return price * (100 - code.percentage) / 100;
+        return Util.format(price * (100 - code.percentage) / 100);
     }
 }
 

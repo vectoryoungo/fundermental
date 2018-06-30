@@ -32,8 +32,8 @@ public class AsynSimlulator {
             new Shop("Gay"));
     public static void main(String[] args) {
 
-        Shop shop = new Shop("BestBuy");
-        System.out.println(shop.getPriceStr("BestBuy"));
+       /* Shop shop = new Shop("BestBuy");
+        System.out.println(shop.getPriceStr("BestBuy"));*/
         /*long start = System.nanoTime();
         Future<Double> futurePrice = shop.getPriceAsync("pork");
         long invocationTime = ((System.nanoTime() - start) / 1_000_000);
@@ -49,13 +49,13 @@ public class AsynSimlulator {
         }
         long retrievalTime = ((System.nanoTime() - start) / 1_000_000);
         System.out.println("Price returned after " + retrievalTime + " msecs");
-
+        */
         long start = System.nanoTime();
-        System.out.println(findPriceWithCompletableFuture("myPhone27S"));
+        System.out.println(findPricesWithDiscount("BuyItAll"));
         long duration = (System.nanoTime() - start) / 1_000_000;
         System.out.println("Done in " + duration + " msecs");
 
-        System.out.println(Runtime.getRuntime().availableProcessors());*/
+        System.out.println(Runtime.getRuntime().availableProcessors());
 
 
 
@@ -95,6 +95,15 @@ public class AsynSimlulator {
                         });
         List<CompletableFuture<String>> priceFutures = shops.stream().map(shop -> CompletableFuture.supplyAsync(()->shop.getName()+" price is "+shop.getPrice(product),executor)).collect(toList());
         return priceFutures.stream().map(CompletableFuture::join).collect(toList());
+    }
+
+    //以最简单的方式实现使用Discount服务的findPrices方法
+    public static List<String> findPricesWithDiscount(String product) {
+        return shops.stream()
+                .map(shop -> shop.getPriceStr(product))
+                .map(Quote::parse)
+                .map(Discount::applyDiscount)
+                .collect(toList());
     }
 }
 
