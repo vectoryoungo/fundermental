@@ -32,8 +32,9 @@ public class AsynSimlulator {
             new Shop("Gay"));
     public static void main(String[] args) {
 
-        /*Shop shop = new Shop("BestBuy");
-        long start = System.nanoTime();
+        Shop shop = new Shop("BestBuy");
+        System.out.println(shop.getPriceStr("BestBuy"));
+        /*long start = System.nanoTime();
         Future<Double> futurePrice = shop.getPriceAsync("pork");
         long invocationTime = ((System.nanoTime() - start) / 1_000_000);
         System.out.println("Invocation returned after " + invocationTime + "msecs");
@@ -47,14 +48,16 @@ public class AsynSimlulator {
             throw new RuntimeException(e);
         }
         long retrievalTime = ((System.nanoTime() - start) / 1_000_000);
-        System.out.println("Price returned after " + retrievalTime + " msecs");*/
+        System.out.println("Price returned after " + retrievalTime + " msecs");
 
         long start = System.nanoTime();
         System.out.println(findPriceWithCompletableFuture("myPhone27S"));
         long duration = (System.nanoTime() - start) / 1_000_000;
         System.out.println("Done in " + duration + " msecs");
 
-        System.out.println(Runtime.getRuntime().availableProcessors());
+        System.out.println(Runtime.getRuntime().availableProcessors());*/
+
+
 
     }
 
