@@ -44,7 +44,7 @@ public class AsynSimlulator {
         System.out.println("Price returned after " + retrievalTime + " msecs");*/
 
         long start = System.nanoTime();
-        System.out.println(findPrices("myPhone27S"));
+        System.out.println(findPriceWithParalletStream("myPhone27S"));
         long duration = (System.nanoTime() - start) / 1_000_000;
         System.out.println("Done in " + duration + " msecs");
     }
@@ -63,6 +63,10 @@ public class AsynSimlulator {
                 .map(shop -> String.format("%s price is %.2f",
                         shop.getName(), shop.getPrice(product)))
                 .collect(toList());
+    }
+
+    public static List<String> findPriceWithParalletStream(String product) {
+        return shops.parallelStream().map(shop -> String.format("%s price is %.2f",shop.getName(),shop.getPrice(product))).collect(toList());
     }
 }
 
