@@ -16,16 +16,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Future;
 
+import static java.util.stream.Collectors.toList;
+
 public class AsynSimlulator {
 
+    private static List<Shop> shops = Arrays.asList(new Shop("BestPrice"),
+            new Shop("LetsSaveBig"),
+            new Shop("MyFavoriteShop"),
+            new Shop("BuyItAll"));
     public static void main(String[] args) {
 
-        List<Shop> shops = Arrays.asList(new Shop("BestPrice"),
-                new Shop("LetsSaveBig"),
-                new Shop("MyFavoriteShop"),
-                new Shop("BuyItAll"));
-
-        Shop shop = new Shop("BestBuy");
+        /*Shop shop = new Shop("BestBuy");
         long start = System.nanoTime();
         Future<Double> futurePrice = shop.getPriceAsync("pork");
         long invocationTime = ((System.nanoTime() - start) / 1_000_000);
@@ -40,7 +41,12 @@ public class AsynSimlulator {
             throw new RuntimeException(e);
         }
         long retrievalTime = ((System.nanoTime() - start) / 1_000_000);
-        System.out.println("Price returned after " + retrievalTime + " msecs");
+        System.out.println("Price returned after " + retrievalTime + " msecs");*/
+
+        long start = System.nanoTime();
+        System.out.println(findPrices("myPhone27S"));
+        long duration = (System.nanoTime() - start) / 1_000_000;
+        System.out.println("Done in " + duration + " msecs");
     }
 
     private static void doSomethingElse() {
@@ -50,6 +56,13 @@ public class AsynSimlulator {
                 sum = sum+i;
             }
         }
+    }
+
+    public static List<String> findPrices(String product) {
+        return shops.stream()
+                .map(shop -> String.format("%s price is %.2f",
+                        shop.getName(), shop.getPrice(product)))
+                .collect(toList());
     }
 }
 

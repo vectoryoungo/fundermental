@@ -21,6 +21,7 @@ import java.util.concurrent.Future;
 public class Shop {
 
     private String name;
+    private double price;
 
     public Shop(String name) {
         this.name = name;
@@ -57,6 +58,22 @@ public class Shop {
     //一行语句重写getPriceAsync方法
     public Future<Double> getPriceAsyncPromote(String product) {
         return CompletableFuture.supplyAsync(()->calculatePrice(product));
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
 
