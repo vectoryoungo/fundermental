@@ -14,8 +14,7 @@ package com.xlab.service_java_infrastructure.java8chapter11;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -25,7 +24,12 @@ public class AsynSimlulator {
     private static List<Shop> shops = Arrays.asList(new Shop("BestPrice"),
             new Shop("LetsSaveBig"),
             new Shop("MyFavoriteShop"),
-            new Shop("BuyItAll"));
+            new Shop("BuyItAll"),
+            new Shop("Shit"),
+            new Shop("Sex"),
+            new Shop("FuckHard"),
+            new Shop("whore"),
+            new Shop("Gay"));
     public static void main(String[] args) {
 
         /*Shop shop = new Shop("BestBuy");
@@ -50,6 +54,7 @@ public class AsynSimlulator {
         long duration = (System.nanoTime() - start) / 1_000_000;
         System.out.println("Done in " + duration + " msecs");
 
+        System.out.println(Runtime.getRuntime().availableProcessors());
 
     }
 
@@ -76,7 +81,16 @@ public class AsynSimlulator {
 
     //使用CompletableFuture实现findPrices方法
     public static List<String> findPriceWithCompletableFuture(String product) {
-        List<CompletableFuture<String>> priceFutures = shops.stream().map(shop -> CompletableFuture.supplyAsync(()->String.format("%s price is %.2f",shop.getName(),shop.getPrice(product)))).collect(toList());
+        Executor executor =
+                Executors.newFixedThreadPool(Math.min(shops.size(), 100),
+                        new ThreadFactory() {
+                            public Thread newThread(Runnable r) {
+                                Thread t = new Thread(r);
+                                t.setDaemon(true);
+                                return t;
+                            }
+                        });
+        List<CompletableFuture<String>> priceFutures = shops.stream().map(shop -> CompletableFuture.supplyAsync(()->shop.getName()+" price is "+shop.getPrice(product),executor)).collect(toList());
         return priceFutures.stream().map(CompletableFuture::join).collect(toList());
     }
 }
