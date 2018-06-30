@@ -14,7 +14,9 @@ package com.xlab.service_java_infrastructure.java8chapter11;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -44,9 +46,11 @@ public class AsynSimlulator {
         System.out.println("Price returned after " + retrievalTime + " msecs");*/
 
         long start = System.nanoTime();
-        System.out.println(findPriceWithParalletStream("myPhone27S"));
+        System.out.println(findPriceWithCompletableFuture("myPhone27S"));
         long duration = (System.nanoTime() - start) / 1_000_000;
         System.out.println("Done in " + duration + " msecs");
+
+
     }
 
     private static void doSomethingElse() {
@@ -67,6 +71,13 @@ public class AsynSimlulator {
 
     public static List<String> findPriceWithParalletStream(String product) {
         return shops.parallelStream().map(shop -> String.format("%s price is %.2f",shop.getName(),shop.getPrice(product))).collect(toList());
+    }
+
+
+    //使用CompletableFuture实现findPrices方法
+    public static List<String> findPriceWithCompletableFuture(String product) {
+        List<CompletableFuture<String>> priceFutures = shops.stream().map(shop -> CompletableFuture.supplyAsync(()->String.format("%s price is %.2f",shop.getName(),shop.getPrice(product)))).collect(toList());
+        return priceFutures.stream().map(CompletableFuture::join).collect(toList());
     }
 }
 
