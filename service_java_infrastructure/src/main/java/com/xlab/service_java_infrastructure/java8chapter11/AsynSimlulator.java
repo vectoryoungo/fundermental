@@ -51,7 +51,7 @@ public class AsynSimlulator {
         System.out.println("Price returned after " + retrievalTime + " msecs");
         */
         long start = System.nanoTime();
-        System.out.println(findPricesWithDiscount("BuyItAll"));
+        System.out.println(findPricesWithCompletableFuturePromote("BuyItAll"));
         long duration = (System.nanoTime() - start) / 1_000_000;
         System.out.println("Done in " + duration + " msecs");
 
@@ -104,6 +104,26 @@ public class AsynSimlulator {
                 .map(Quote::parse)
                 .map(Discount::applyDiscount)
                 .collect(toList());
+    }
+    //使用CompletableFuture实现findPrices方法
+
+    public static List<String> findPricesWithCompletableFuturePromote(String product){
+        Executor executor =
+                Executors.newFixedThreadPool(Math.min(shops.size(), 100),
+                        new ThreadFactory() {
+                            public Thread newThread(Runnable r) {
+                                Thread t = new Thread(r);
+                                t.setDaemon(true);
+                                return t;
+                            }
+                        });
+        List<CompletableFuture<String>> priceFutures = shops.stream().
+                map(shop -> CompletableFuture.supplyAsync(()->shop.getPriceStr(product),executor))
+                .map(future->future.thenApply(Quote::parse))
+                .map(future->future.thenCompose(quote -> CompletableFuture.supplyAsync((()->Discount.applyDiscount(quote)),executor)))
+                .collect(toList());
+
+        return priceFutures.stream().map(CompletableFuture::join).collect(toList());
     }
 }
 

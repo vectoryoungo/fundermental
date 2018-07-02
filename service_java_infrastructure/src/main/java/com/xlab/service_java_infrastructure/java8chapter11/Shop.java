@@ -42,7 +42,9 @@ public class Shop {
     public String getPriceStr(String product) {
         double price = calculatePrice(product);
         Discount.Code code = Discount.Code.values()[new Random().nextInt(Discount.Code.values().length)];
-        return String.format("%s:%.2f%s",name,price,code);
+
+        //String.format("%s:%.2f%s",name,price,code);
+        return name + ":" + price + ":" + code;
     }
 
     private double calculatePrice(String product) {
