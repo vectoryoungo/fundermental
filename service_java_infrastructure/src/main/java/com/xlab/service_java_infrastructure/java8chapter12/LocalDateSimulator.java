@@ -20,7 +20,7 @@ public class LocalDateSimulator {
     private static final LocalDate localDate = LocalDate.of(2018,7,4);
 
     public static void main(String[] args) {
-        combineDateAndTime();
+        showInstant();
     }
 
     public static void showLocalDate() {
@@ -89,6 +89,18 @@ public class LocalDateSimulator {
         LocalTime time1 = dt1.toLocalTime();
         System.out.println(" localDate get from LocalDateTime is " + date1);
         System.out.println(" localTime get from LocalDateTime is " + time1);
+    }
+
+    //机器的日期和时间格式
+    public static void showInstant() {
+        Instant one = Instant.ofEpochSecond(3);
+        Instant two = Instant.ofEpochSecond(3, 0);
+        Instant three = Instant.ofEpochSecond(2, 1_000_000_000);
+        Instant four = Instant.ofEpochSecond(4, -1_000_000_000);
+        System.out.println(" instant is " + one);
+        System.out.println(" instant two is " + two);
+        System.out.println(" instant three is " + three);
+        System.out.println(" instant four is " + four);
     }
 
 }
