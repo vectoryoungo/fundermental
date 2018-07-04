@@ -14,6 +14,7 @@ package com.xlab.service_java_infrastructure.java8chapter12;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
 import java.time.temporal.ChronoField;
 
@@ -22,7 +23,7 @@ public class LocalDateSimulator {
     private static final LocalDate localDate = LocalDate.of(2018,7,4);
 
     public static void main(String[] args) {
-        getLocalDateWithTemporalField();
+        createLocalTimeAndShow();
     }
 
     public static void showLocalDate() {
@@ -50,6 +51,16 @@ public class LocalDateSimulator {
         System.out.println(year);
         System.out.println(month);
         System.out.println(day);
+    }
+
+    public static void createLocalTimeAndShow() {
+        LocalTime localTime = LocalTime.of(8,42,9);
+        int hour = localTime.getHour();
+        int minute = localTime.getMinute();
+        int seconds = localTime.getSecond();
+        System.out.println(" hour " + hour);
+        System.out.println(" minute " + minute);
+        System.out.println(" seconds " + seconds);
     }
 }
 
