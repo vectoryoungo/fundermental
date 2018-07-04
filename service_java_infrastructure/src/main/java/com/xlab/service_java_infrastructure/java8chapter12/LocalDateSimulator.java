@@ -92,6 +92,9 @@ public class LocalDateSimulator {
     }
 
     //机器的日期和时间格式
+    //我们想要特别强调一
+    //点，Instant的设计初衷是为了便于机器使用。它包含的是由秒及纳秒所构成的数字。所以，它
+    //无法处理那些我们非常容易理解的时间单位。
     public static void showInstant() {
         Instant one = Instant.ofEpochSecond(3);
         Instant two = Instant.ofEpochSecond(3, 0);
@@ -101,6 +104,8 @@ public class LocalDateSimulator {
         System.out.println(" instant two is " + two);
         System.out.println(" instant three is " + three);
         System.out.println(" instant four is " + four);
+        int day = Instant.now().get(ChronoField.DAY_OF_MONTH);
+        System.out.println("day is "+ day);
     }
 
 }
