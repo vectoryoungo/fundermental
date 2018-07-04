@@ -104,8 +104,9 @@ public class LocalDateSimulator {
         System.out.println(" instant two is " + two);
         System.out.println(" instant three is " + three);
         System.out.println(" instant four is " + four);
-        int day = Instant.now().get(ChronoField.DAY_OF_MONTH);
+        int day = Instant.now().get(ChronoField.DAY_OF_MONTH);// this will cause exception unsupport field:DayOfMonth
         System.out.println("day is "+ day);
+        //但是你可以通过Duration和Period类使用Instant
     }
 
 }
