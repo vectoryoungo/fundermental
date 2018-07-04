@@ -14,6 +14,7 @@ package com.xlab.service_java_infrastructure.java8chapter12;
 
 import java.time.*;
 import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
 
 public class LocalDateSimulator {
 
@@ -124,6 +125,15 @@ public class LocalDateSimulator {
         System.out.println(" duration " + duration);
         System.out.println(" duration1 " + duration1);
         System.out.println(" duration2 " + duration2);
+    }
+
+    //创建Duration和Period对象
+    public static void createDurationAndPeriod() {
+        Duration threeMinutes = Duration.ofMinutes(3);
+        Duration threeMinutess = Duration.of(3, ChronoUnit.MINUTES);
+        Period tenDays = Period.ofDays(10);
+        Period threeWeeks = Period.ofWeeks(3);
+        Period twoYearsSixMonthsOneDay = Period.of(2, 6, 1);
     }
 
 }
