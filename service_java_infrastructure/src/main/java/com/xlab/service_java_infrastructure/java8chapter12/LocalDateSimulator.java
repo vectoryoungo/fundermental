@@ -23,7 +23,7 @@ public class LocalDateSimulator {
     private static final LocalDate localDate = LocalDate.of(2018,7,4);
 
     public static void main(String[] args) {
-        createLocalTimeAndShow();
+        parseLocalDateAndTime();
     }
 
     public static void showLocalDate() {
@@ -62,5 +62,13 @@ public class LocalDateSimulator {
         System.out.println(" minute " + minute);
         System.out.println(" seconds " + seconds);
     }
+
+    public static void parseLocalDateAndTime() {
+        LocalDate localDate = LocalDate.parse("2018-07-04");
+        LocalTime localTime = LocalTime.parse("08:45:46");
+        System.out.println("localDate " + localDate);
+        System.out.println("localTime " + localTime);
+    }
+
 }
 
