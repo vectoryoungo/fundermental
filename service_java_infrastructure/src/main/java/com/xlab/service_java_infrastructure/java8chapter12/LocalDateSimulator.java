@@ -15,11 +15,17 @@ package com.xlab.service_java_infrastructure.java8chapter12;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.temporal.ChronoField;
 
 public class LocalDateSimulator {
 
+    private static final LocalDate localDate = LocalDate.of(2018,7,4);
+
     public static void main(String[] args) {
-        LocalDate localDate = LocalDate.of(2018,7,4);
+        getLocalDateWithTemporalField();
+    }
+
+    public static void showLocalDate() {
         int year = localDate.getYear();
         Month month = localDate.getMonth();
         int day = localDate.getDayOfMonth();
@@ -33,6 +39,17 @@ public class LocalDateSimulator {
         System.out.println("lengthOfMonth is " + lengthOfMonth);
         System.out.println("leapYear is " + leapYear);
         System.out.println("now is " + LocalDate.now());
+    }
+
+    //使用TemporalField读取LocalDate的值
+    public static void getLocalDateWithTemporalField() {
+
+        int year = localDate.get(ChronoField.YEAR);
+        int month = localDate.get(ChronoField.MONTH_OF_YEAR);
+        int day = localDate.get(ChronoField.DAY_OF_MONTH);
+        System.out.println(year);
+        System.out.println(month);
+        System.out.println(day);
     }
 }
 
