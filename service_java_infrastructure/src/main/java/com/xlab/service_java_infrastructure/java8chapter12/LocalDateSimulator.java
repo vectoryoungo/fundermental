@@ -83,6 +83,12 @@ public class LocalDateSimulator {
         System.out.println("dt3 " + dt3);
         System.out.println("dt4 " + dt4);
         System.out.println("dt5 " + dt5);
+        //get localDate from LocalDateTime
+        //get localTime from LocalDateTime
+        LocalDate date1 = dt1.toLocalDate();
+        LocalTime time1 = dt1.toLocalTime();
+        System.out.println(" localDate get from LocalDateTime is " + date1);
+        System.out.println(" localTime get from LocalDateTime is " + time1);
     }
 
 }
