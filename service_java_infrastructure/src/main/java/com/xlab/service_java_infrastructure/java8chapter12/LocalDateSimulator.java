@@ -12,10 +12,7 @@
  **/
 package com.xlab.service_java_infrastructure.java8chapter12;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Month;
+import java.time.*;
 import java.time.temporal.ChronoField;
 
 public class LocalDateSimulator {
@@ -23,7 +20,7 @@ public class LocalDateSimulator {
     private static final LocalDate localDate = LocalDate.of(2018,7,4);
 
     public static void main(String[] args) {
-        parseLocalDateAndTime();
+        combineDateAndTime();
     }
 
     public static void showLocalDate() {
@@ -68,6 +65,24 @@ public class LocalDateSimulator {
         LocalTime localTime = LocalTime.parse("08:45:46");
         System.out.println("localDate " + localDate);
         System.out.println("localTime " + localTime);
+    }
+
+    //合并日期和时间 LocalDateTime combined LocalDate with LocalTime
+    //直接创建LocalDateTime对象，或者通过合并日期和时间的方式创建
+    public static void combineDateAndTime() {
+        LocalDate localDate = LocalDate.parse("2018-07-04");
+        LocalTime localTime = LocalTime.parse("08:45:46");
+        // 2014-03-18T13:45:20
+        LocalDateTime dt1 = LocalDateTime.of(2014, Month.MARCH, 18, 13, 45, 20);
+        LocalDateTime dt2 = LocalDateTime.of(localDate, localTime);
+        LocalDateTime dt3 = localDate.atTime(13, 45, 20);
+        LocalDateTime dt4 = localDate.atTime(localTime);
+        LocalDateTime dt5 = localTime.atDate(localDate);
+        System.out.println("dt1 " + dt1);
+        System.out.println("dt2 " + dt2);
+        System.out.println("dt3 " + dt3);
+        System.out.println("dt4 " + dt4);
+        System.out.println("dt5 " + dt5);
     }
 
 }
