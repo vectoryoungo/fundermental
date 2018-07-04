@@ -20,7 +20,7 @@ public class LocalDateSimulator {
     private static final LocalDate localDate = LocalDate.of(2018,7,4);
 
     public static void main(String[] args) {
-        showInstant();
+        showDurationAndPeriod();
     }
 
     public static void showLocalDate() {
@@ -107,6 +107,23 @@ public class LocalDateSimulator {
         int day = Instant.now().get(ChronoField.DAY_OF_MONTH);// this will cause exception unsupport field:DayOfMonth
         System.out.println("day is "+ day);
         //但是你可以通过Duration和Period类使用Instant
+    }
+
+    //定义Duration 或Period
+    public static void showDurationAndPeriod() {
+        Instant one = Instant.ofEpochSecond(3);
+        Instant two = Instant.ofEpochSecond(3, 0);
+        LocalDate localDate = LocalDate.parse("2018-07-04");
+        LocalTime localTime = LocalTime.parse("08:45:46");
+        LocalTime localTime1 = LocalTime.of(9,18,40);
+        LocalDateTime localDateTime1 = localDate.atTime(localTime);
+        LocalDateTime localDateTime2 = localTime.atDate(localDate);
+        Duration duration = Duration.between(localTime,localTime1);
+        Duration duration1 = Duration.between(localDateTime1,localDateTime2);
+        Duration duration2 = Duration.between(one,two);
+        System.out.println(" duration " + duration);
+        System.out.println(" duration1 " + duration1);
+        System.out.println(" duration2 " + duration2);
     }
 
 }
