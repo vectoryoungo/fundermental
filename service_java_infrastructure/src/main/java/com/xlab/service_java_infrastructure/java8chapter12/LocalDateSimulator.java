@@ -32,7 +32,7 @@ public class LocalDateSimulator {
         System.out.println("dayOfWeek is " + dayOfWeek);
         System.out.println("lengthOfMonth is " + lengthOfMonth);
         System.out.println("leapYear is " + leapYear);
-
+        System.out.println("now is " + LocalDate.now());
     }
 }
 
