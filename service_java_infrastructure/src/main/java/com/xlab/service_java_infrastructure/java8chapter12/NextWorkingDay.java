@@ -14,10 +14,7 @@ package com.xlab.service_java_infrastructure.java8chapter12;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.temporal.ChronoField;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
-import java.time.temporal.TemporalAdjuster;
+import java.time.temporal.*;
 
 public class NextWorkingDay implements TemporalAdjuster{
 
@@ -48,6 +45,29 @@ public class NextWorkingDay implements TemporalAdjuster{
         return temporal.plus(dayToAdd,ChronoUnit.DAYS);});
 
         return date;
+    }
+
+    public LocalDate adjustWithLambda(LocalDate date) {
+        TemporalAdjuster nextWorkingDay = TemporalAdjusters.ofDateAdjuster(
+                temporal-> {
+                    DayOfWeek dayOfWeek = DayOfWeek.of(temporal.get(ChronoField.DAY_OF_WEEK));
+                    int dayToAdd = 1;
+                    if (dayOfWeek == DayOfWeek.FRIDAY) {
+                        dayToAdd = 3;
+                    }else if (dayOfWeek == DayOfWeek.SATURDAY) {
+                        dayToAdd = 2;
+                    }
+                    return temporal.plus(dayToAdd,ChronoUnit.DAYS);
+                }
+        );
+
+        return date = date.with(nextWorkingDay);
+    }
+
+    public static void main(String[] args) {
+        NextWorkingDay nextWorkingDay = new NextWorkingDay();
+        System.out.println("adjust with localdate " + nextWorkingDay.adjustWithLocalDate(LocalDate.now()));
+        System.out.println(" lambda localdate return " + nextWorkingDay.adjustWithLambda(LocalDate.now()));
     }
 }
 
