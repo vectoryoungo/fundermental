@@ -16,6 +16,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.*;
+import java.util.Locale;
 
 public class NextWorkingDay implements TemporalAdjuster{
 
@@ -74,12 +75,22 @@ public class NextWorkingDay implements TemporalAdjuster{
         LocalDate newLocalDate = LocalDate.parse(formattedDate,formatter);
         return newLocalDate;
     }
+    //创建一个本地化的DateTimeFormatter
+    public LocalDate createLocalDateTimeFormatter() {
+        DateTimeFormatter italianFormatter = DateTimeFormatter.ofPattern("d. MMMM yyyy", Locale.ITALIAN);
+        LocalDate localDate = LocalDate.of(2018,9,9);
+        String formattedDate = localDate.format(italianFormatter);
+        System.out.println("italian formatted is " + formattedDate);
+        LocalDate newLocalDate = LocalDate.parse(formattedDate,italianFormatter);
+        return newLocalDate;
+    }
 
     public static void main(String[] args) {
         NextWorkingDay nextWorkingDay = new NextWorkingDay();
         System.out.println("adjust with localdate " + nextWorkingDay.adjustWithLocalDate(LocalDate.now()));
         System.out.println(" lambda localdate return " + nextWorkingDay.adjustWithLambda(LocalDate.now()));
         System.out.println(" formatted date is " + nextWorkingDay.createLocalDateWithSpecificFormat());
+        System.out.println(" italian formatted is " + nextWorkingDay.createLocalDateTimeFormatter());
     }
 }
 
