@@ -15,6 +15,7 @@ package com.xlab.service_java_infrastructure.java8chapter12;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.*;
 import java.util.Locale;
 
@@ -83,6 +84,18 @@ public class NextWorkingDay implements TemporalAdjuster{
         System.out.println("italian formatted is " + formattedDate);
         LocalDate newLocalDate = LocalDate.parse(formattedDate,italianFormatter);
         return newLocalDate;
+    }
+
+    //自定义解析，构建自己的格式器。比如区分大小写的解析，柔性解析，填充，以及在格式解析器中指定可选节。
+    public void constructSelfDefineFormatter() {
+        DateTimeFormatter italianFormatteer = new DateTimeFormatterBuilder()
+                .appendText(ChronoField.DAY_OF_MONTH)
+                .appendLiteral(".")
+                .appendText(ChronoField.MONTH_OF_YEAR)
+                .appendLiteral(" ")
+                .appendText(ChronoField.YEAR)
+                .parseCaseInsensitive()
+                .toFormatter();
     }
 
     public static void main(String[] args) {
