@@ -14,6 +14,7 @@ package com.xlab.service_java_infrastructure.java8chapter12;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.*;
 
 public class NextWorkingDay implements TemporalAdjuster{
@@ -64,10 +65,21 @@ public class NextWorkingDay implements TemporalAdjuster{
         return date = date.with(nextWorkingDay);
     }
 
+    //按照某个模式创建DateTimeFormatter
+    public LocalDate createLocalDateWithSpecificFormat() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate localDate = LocalDate.of(2018,7,5);
+        String formattedDate = localDate.format(formatter);
+        System.out.println("format " + formattedDate);
+        LocalDate newLocalDate = LocalDate.parse(formattedDate,formatter);
+        return newLocalDate;
+    }
+
     public static void main(String[] args) {
         NextWorkingDay nextWorkingDay = new NextWorkingDay();
         System.out.println("adjust with localdate " + nextWorkingDay.adjustWithLocalDate(LocalDate.now()));
         System.out.println(" lambda localdate return " + nextWorkingDay.adjustWithLambda(LocalDate.now()));
+        System.out.println(" formatted date is " + nextWorkingDay.createLocalDateWithSpecificFormat());
     }
 }
 
