@@ -12,12 +12,13 @@
  **/
 package com.xlab.service_java_infrastructure.java8chapter12;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
+import java.time.*;
+import java.time.chrono.MinguoDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.*;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class NextWorkingDay implements TemporalAdjuster{
 
@@ -98,12 +99,37 @@ public class NextWorkingDay implements TemporalAdjuster{
                 .toFormatter();
     }
 
+    //为时间点添加时区信息
+    public void addZoneInfo() {
+        ZoneId zoneId = TimeZone.getDefault().toZoneId();
+        System.out.println("zoneId " + zoneId);
+        LocalDate date = LocalDate.of(2014, Month.MARCH, 18);
+        ZonedDateTime zdt1 = date.atStartOfDay(zoneId);
+        System.out.println("zdt1 " + zdt1);
+        LocalDateTime dateTime = LocalDateTime.of(2014, Month.MARCH, 18, 13, 45);
+        ZonedDateTime zdt2 = dateTime.atZone(zoneId);
+        System.out.println("zdt2 " + zdt2);
+        Instant instant = Instant.now();
+        ZonedDateTime zdt3 = instant.atZone(zoneId);
+        System.out.println("zdt3 " + zdt3);
+    }
+
+    public void nonISOCalendaring() {
+        LocalDate date = LocalDate.of(2014, Month.MARCH, 18);
+        MinguoDate minguoDate = MinguoDate.from(date);
+        System.out.println(minguoDate);
+
+    }
+
     public static void main(String[] args) {
         NextWorkingDay nextWorkingDay = new NextWorkingDay();
         System.out.println("adjust with localdate " + nextWorkingDay.adjustWithLocalDate(LocalDate.now()));
         System.out.println(" lambda localdate return " + nextWorkingDay.adjustWithLambda(LocalDate.now()));
         System.out.println(" formatted date is " + nextWorkingDay.createLocalDateWithSpecificFormat());
         System.out.println(" italian formatted is " + nextWorkingDay.createLocalDateTimeFormatter());
+        System.out.println(" zone info ");
+        nextWorkingDay.addZoneInfo();
+        nextWorkingDay.nonISOCalendaring();
     }
 }
 
