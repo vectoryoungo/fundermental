@@ -12,6 +12,8 @@
  **/
 package com.xlab.service_java_infrastructure.java8chapter12;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.*;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
@@ -21,7 +23,10 @@ public class LocalDateSimulator {
     private static final LocalDate localDate = LocalDate.of(2018,7,4);
 
     public static void main(String[] args) {
-        showDurationAndPeriod();
+        //showDurationAndPeriod();
+        //3.99999999
+        BigDecimal bigDecimal = new BigDecimal("3.999999999999");
+        System.out.println(bigDecimal.setScale(8, BigDecimal.ROUND_FLOOR));
     }
 
     public static void showLocalDate() {
@@ -135,6 +140,8 @@ public class LocalDateSimulator {
         Period threeWeeks = Period.ofWeeks(3);
         Period twoYearsSixMonthsOneDay = Period.of(2, 6, 1);
     }
+
+
 
 }
 
