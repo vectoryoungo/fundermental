@@ -12,7 +12,7 @@
  **/
 package com.xlab.service_java_infrastructure.effective8.chapter78;
 
-public class CocurrentLabTwo {
+public class ConcurrentLabTwo {
 
     private static volatile int nextSerialNumber =0;
 
