@@ -43,13 +43,29 @@ public class ObservableSet<E> extends ForwardingSet<E> {
         }
     }
 
+    //Alien method moved outside of synchronized block-open calls
+    private void notifyElementAddedSafety(E element) {
+        List<SetObserver<E>> snapshot = null;
+        synchronized (observers) {
+            snapshot = new ArrayList<>(observers);
+        }
+
+        for (SetObserver<E> observer:snapshot) {
+            observer.added(this,element);
+        }
+    }
+
     @Override
     public boolean add(E element) {
         boolean added = super.add(element);
         if (added)
             notifyElementAdded(element);
+        //notifyElementAddedSafety(element) will not lead deadlock
+        //notifyElementAdded(element); will lead deadlock
         return added;
     }
+
+
 
     @Override
     public boolean addAll(Collection<? extends E> c) {
@@ -97,7 +113,8 @@ public class ObservableSet<E> extends ForwardingSet<E> {
         // thread already has the lock. All the while,the main thread is waiting for
         //the background thread to finish removing the observer , which explain the deadlock
 
-
+        // Attention:Invoking alien methods from within synchronized regions has caused many deadlocks
+        //in real systems,such as GUI toolkits.
 
 }
 
