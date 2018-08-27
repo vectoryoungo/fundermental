@@ -13,6 +13,7 @@
 package com.xlab.service_java_infrastructure.effective8;
 
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -21,8 +22,10 @@ public class ObservableSet<E> extends ForwardingSet<E> {
 
     public ObservableSet(Set<E> set) { super(set); }
 
-    private final List<SetObserver<E>> observers
-            = new ArrayList<>();
+   /* private final List<SetObserver<E>> observers
+            = new ArrayList<>();*/
+    //Thread-safe observable set with CopyOnWriteArrayList
+    private final List<SetObserver<E>> observers = new CopyOnWriteArrayList();
 
     public void addObserver(SetObserver<E> observer) {
         synchronized(observers) {
@@ -43,6 +46,13 @@ public class ObservableSet<E> extends ForwardingSet<E> {
         }
     }
 
+    //work with copyonwritearraylist
+    private void notifyElementAddedNoSyn(E element) {
+        for (SetObserver<E> observer:observers) {
+            observer.added(this,element);
+        }
+    }
+
     //Alien method moved outside of synchronized block-open calls
     private void notifyElementAddedSafety(E element) {
         List<SetObserver<E>> snapshot = null;
@@ -59,7 +69,7 @@ public class ObservableSet<E> extends ForwardingSet<E> {
     public boolean add(E element) {
         boolean added = super.add(element);
         if (added)
-            notifyElementAdded(element);
+            notifyElementAddedNoSyn(element);
         //notifyElementAddedSafety(element) will not lead deadlock
         //notifyElementAdded(element); will lead deadlock
         return added;
@@ -115,6 +125,9 @@ public class ObservableSet<E> extends ForwardingSet<E> {
 
         // Attention:Invoking alien methods from within synchronized regions has caused many deadlocks
         //in real systems,such as GUI toolkits.
+
+        //the best way is use libraries provide a concurrent collection known as CopyOnWriteArrayList
+        //
 
 }
 
