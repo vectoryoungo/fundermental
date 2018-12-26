@@ -10,6 +10,7 @@
  * @create 2018-12-26 10:20
  * @desc test of re entry lock
  * 可重入锁。同一个线程，多次调用同步代码，锁定同一个锁对象。
+ * 多线程锁定同一个对象时不可重入的.
  **/
 package com.xlab.service_java_infrastructure.concurrent;
 
