@@ -45,7 +45,6 @@ public class ConcurrentContainerSimulator {
                 }
             }
         }).start();
-        System.out.println(" list " + concurrentContainer.size());
     }
 }
 
