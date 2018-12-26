@@ -34,6 +34,7 @@ public class TwoDifferentThreadShareOneMethod {
             }
 
             if (sharedNumber == 5) {
+                System.out.println(Thread.currentThread().getName() + "  sharedNumber " + sharedNumber);
                 sharedNumber = 1/0;
             }
         }
@@ -60,6 +61,9 @@ public class TwoDifferentThreadShareOneMethod {
 
     /**
      * 打印结果
+     * 如果是main方法如此写：
+     * final TwoDifferentThreadShareOneMethod twoDifferentThreadShareOneMethod = new TwoDifferentThreadShareOneMethod();
+     * 结果如下：
      * begin out loop thread one  - start
      * inner loop thread one  ---- 1
      * inner loop thread one  ---- 2
@@ -71,6 +75,30 @@ public class TwoDifferentThreadShareOneMethod {
      * Exception in thread "thread one " java.lang.ArithmeticException: / by zero
      * at com.xlab.service_java_infrastructure.concurrent.TwoDifferentThreadShareOneMethod.notifyMsg(TwoDifferentThreadShareOneMethod.java:35)
      * at com.xlab.service_java_infrastructure.concurrent.TwoDifferentThreadShareOneMethod$1.run(TwoDifferentThreadShareOneMethod.java:46)
+     * at java.lang.Thread.run(Thread.java:748)
+     * inner loop  thread two  ---- 7
+     * inner loop  thread two  ---- 8
+     * inner loop  thread two  ---- 9
+     * inner loop  thread two  ---- 10
+     */
+
+    /**
+     * 如果main方法中如此写：
+     *  TwoDifferentThreadShareOneMethod twoDifferentThreadShareOneMethod = new TwoDifferentThreadShareOneMethod();
+     *  结果就是：
+     *
+     * begin out loop thread one  - start
+     * inner loop thread one  ---- 1
+     * inner loop thread one  ---- 2
+     * inner loop thread one  ---- 3
+     * inner loop thread one  ---- 4
+     * inner loop thread one  ---- 5
+     * Exception in thread "thread one " java.lang.ArithmeticException: / by zero
+     * thread one   sharedNumber 5
+     * begin out loop  thread two  - start
+     * at com.xlab.service_java_infrastructure.concurrent.TwoDifferentThreadShareOneMethod.notifyMsg(TwoDifferentThreadShareOneMethod.java:38)
+     * inner loop  thread two  ---- 6
+     * at com.xlab.service_java_infrastructure.concurrent.TwoDifferentThreadShareOneMethod$1.run(TwoDifferentThreadShareOneMethod.java:49)
      * at java.lang.Thread.run(Thread.java:748)
      * inner loop  thread two  ---- 7
      * inner loop  thread two  ---- 8
