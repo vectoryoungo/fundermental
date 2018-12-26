@@ -9,6 +9,8 @@
  * @author juhongtao
  * @create 2018-12-26 10:02
  * @desc test of dirty read
+ *
+ * 测试如果锁的对象中有比较耗时，但是外部访问锁定的变量，会产生脏读。
  **/
 package com.xlab.service_java_infrastructure.concurrent;
 
