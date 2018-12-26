@@ -12,7 +12,6 @@
  **/
 package com.xlab.service_java_infrastructure.concurrent;
 
-import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
 public class DirtyReadConcurrentSimulator {
