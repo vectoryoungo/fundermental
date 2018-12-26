@@ -9,6 +9,8 @@
  * @author juhongtao
  * @create 2018-12-26 10:40
  * @desc test of override concurrent
+ * 子类同步方法覆盖父类同步方法。可以指定调用父类的同步方法
+ * 相当于锁的重入。
  **/
 package com.xlab.service_java_infrastructure.concurrent;
 
