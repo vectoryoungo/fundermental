@@ -15,14 +15,20 @@ package com.xlab.service_java_infrastructure.concurrent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ConcurrentCalSimulation {
 
-    volatile  int sharedNumber = 0;
+    //volatile  int sharedNumber = 0;
+
+    AtomicInteger sharedNumber = new AtomicInteger(0);
+
+    //this kind of AtomicInteger will guarantee discard
 
     void notifyMsg() {
         for(int i=0;i<10000;i++) {
-            sharedNumber++;
+            //sharedNumber++;
+            sharedNumber.incrementAndGet();
         }
     }
 
