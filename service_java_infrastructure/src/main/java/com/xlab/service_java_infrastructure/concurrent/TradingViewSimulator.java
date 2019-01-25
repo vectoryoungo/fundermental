@@ -29,11 +29,13 @@ public class TradingViewSimulator {
 
     public static void main(String[] args) throws Exception{
 
-        BigDecimal bigDecimal = new BigDecimal("12.23589");
+        showMSG(null);
+
+        /*BigDecimal bigDecimal = new BigDecimal("12.23589");
         BigDecimal result = bigDecimal.setScale(2, RoundingMode.FLOOR);
         System.out.println(result);
         BigDecimal bigDecimal1 = new BigDecimal("2200");
-        System.out.println(bigDecimal1.setScale(2,RoundingMode.FLOOR));
+        System.out.println(bigDecimal1.setScale(2,RoundingMode.FLOOR));*/
 
         //genTvData("dc_tv_fnl_eth");
         /*Timestamp timestamp = Timestamp.valueOf("2019-01-01 10:17:40");
@@ -81,6 +83,23 @@ public class TradingViewSimulator {
     public static Timestamp getEarliestTimestamp(String tvTableName) {
         System.out.println(" method getEarliestTimestamp " + tvTableName);
         return null;
+    }
+
+    public static void showMSG(String tdTableName) {
+
+        try {
+            if (tdTableName == null || "".equals(tdTableName)) {
+                throw new Exception("error");
+            }
+            System.out.println("end in try ");
+            return;
+
+        }catch (Exception e) {
+            System.out.println(" null " + e);
+        }
+
+        System.out.println("end out try ");
+        return;
     }
 }
 
