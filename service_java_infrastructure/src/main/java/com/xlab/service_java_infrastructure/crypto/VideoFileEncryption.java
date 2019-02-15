@@ -24,12 +24,21 @@ import java.security.spec.InvalidKeySpecException;
 public class VideoFileEncryption {
 
     public static void main(String[] args) {
-        //encryptVideo();
-        //encrypt();
-        decrypt();
+        //encryptVideo(null);
+        encrypt(null);
+        //decrypt(null);
     }
 
-    public static void encryptVideo() {
+    public static void encryptVideo(String fileUrl) {
+
+        String tempFilePath = null;
+
+        if (fileUrl == null) {
+            tempFilePath = "/Users/juhongtao/Downloads/1547823353303150duplicate.mp4";
+        }else {
+            tempFilePath = fileUrl;
+        }
+
         byte XOR = 0X12;
         MappedByteBuffer buffer=null;
         try {
@@ -93,7 +102,15 @@ public class VideoFileEncryption {
      * 加密方法，只加密小文件比如文本文件等，大文件视频文件采用上面encryptVideo()方法
      *
      */
-    public static void encrypt(){
+    public static void encrypt(String fileUrl){
+
+        String tempFilePath = null;
+
+        if (fileUrl == null) {
+            tempFilePath = "/Users/juhongtao/ciphertext.txt";
+        }else {
+            tempFilePath = fileUrl;
+        }
 
         try {
 
@@ -103,12 +120,12 @@ public class VideoFileEncryption {
             SecretKeyFactory skf = SecretKeyFactory.getInstance("DES");
             Class spec = Class.forName("javax.crypto.spec.DESKeySpec");
             DESKeySpec ks = (DESKeySpec) skf.getKeySpec(key, spec);
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("keyfile"));
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("/Users/juhongtao/keyfile"));
             oos.writeObject(ks.getKey());
 
             Cipher c = Cipher.getInstance("DES/CFB8/NoPadding");
             c.init(Cipher.ENCRYPT_MODE, key);
-            CipherOutputStream cos = new CipherOutputStream(new FileOutputStream("ciphertext.txt"), c);
+            CipherOutputStream cos = new CipherOutputStream(new FileOutputStream(tempFilePath), c);
             PrintWriter pw = new PrintWriter(new OutputStreamWriter(cos,"utf-8"));
             pw.println("this is secret content");
             pw.close();
@@ -129,11 +146,20 @@ public class VideoFileEncryption {
      * 解密方法，只解密加密的文本文件。
      *
      */
-    public static void decrypt(){
+    public static void decrypt(String fileUrl){
+
+        String tempFilePath = null;
+
+        if (fileUrl == null) {
+            tempFilePath = "/Users/juhongtao/ciphertext.txt";
+        }else {
+            tempFilePath = fileUrl;
+        }
+
         try {
             ObjectInputStream ois = null;
             try {
-                ois = new ObjectInputStream(new FileInputStream("keyfile"));
+                ois = new ObjectInputStream(new FileInputStream("/Users/juhongtao/keyfile"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -179,7 +205,7 @@ public class VideoFileEncryption {
             }
             CipherInputStream cis = null;
             try {
-                cis = new CipherInputStream(new FileInputStream("ciphertext.txt"), c);
+                cis = new CipherInputStream(new FileInputStream(tempFilePath), c);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
