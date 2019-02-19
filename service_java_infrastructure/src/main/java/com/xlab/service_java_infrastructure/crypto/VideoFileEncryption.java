@@ -11,6 +11,8 @@
  **/
 package com.xlab.service_java_infrastructure.crypto;
 
+import sun.misc.BASE64Encoder;
+
 import javax.crypto.*;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
@@ -25,10 +27,41 @@ public class VideoFileEncryption {
 
     public static void main(String[] args) {
         //encryptVideo(null);
-        encrypt(null);
+
+        /*for (int i=0;i<10000;i++) {
+            encrypt(null);
+        }*/
+
         //decrypt(null);
+        /*String key = "This is a secret";
+        File inputFile = new File("text.txt");
+        File encryptedFile = new File("text.encrypted");
+
+        if (!encryptedFile.exists()) {
+            try {
+                encryptedFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        File decryptedFile = new File("decrypted-text.txt");
+
+        if (!decryptedFile.exists()) {
+            try {
+                decryptedFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        encryptNonVideoFile(Cipher.ENCRYPT_MODE,key,inputFile,encryptedFile);
+        encryptNonVideoFile(Cipher.DECRYPT_MODE,key,encryptedFile,decryptedFile);*/
+        //System.out.println(decrypt(results,"keysuper").toString());
     }
 
+    /**
+     * 视频文件加密方法只是简单地异或运算
+     * @param fileUrl
+     */
     public static void encryptVideo(String fileUrl) {
 
         String tempFilePath = null;
@@ -53,17 +86,17 @@ public class VideoFileEncryption {
                 long t1=System.currentTimeMillis();
                 for(int i=0;i<10;i++){
                     byte src=   buffer.get(i);
-                    System.out.println("before :"+src);
+                    //System.out.println("before :"+src);
                     src = (byte)(src^XOR);
-                    System.out.println("after :"+src);
+                    //System.out.println("after :"+src);
                     buffer.put(i,src);//修改Buffer中映射的字节的值
 
                 }
                 buffer.force();
                 buffer.clear();
 
-                long t=System.currentTimeMillis()-t1;
-                System.out.println("sum:"+sum+"  time:"+t);
+                //long t=System.currentTimeMillis()-t1;
+                //System.out.println("sum:"+sum+"  time:"+t);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -72,6 +105,13 @@ public class VideoFileEncryption {
         }
     }
 
+    /**
+     * 非视频文件加密方法.文本文件等。
+     * @param cipherMode
+     * @param key
+     * @param inputFile
+     * @param outputFile
+     */
     public static void encryptNonVideoFile(int cipherMode,String key,File inputFile,File outputFile) {
 
         try {
@@ -143,7 +183,7 @@ public class VideoFileEncryption {
     }
 
     /**
-     * 解密方法，只解密加密的文本文件。
+     * 解密方法，只解密加密的文本文件等非字符串和非视频文件。
      *
      */
     public static void decrypt(String fileUrl){
@@ -214,7 +254,6 @@ public class VideoFileEncryption {
         }catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
 
