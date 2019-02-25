@@ -39,7 +39,7 @@ public class AESUtils {
         String tempFilePath = null;
 
         if (fileUrl == null) {
-            tempFilePath = "/Users/Downloads/1547823353303150duplicate.mp4";
+            tempFilePath = "/Users/juhongtao/Downloads/1547823353303150duplicate.mp4";
         }else {
             tempFilePath = fileUrl;
         }
@@ -47,28 +47,19 @@ public class AESUtils {
         byte XOR = 0X12;
         MappedByteBuffer buffer=null;
         try {
-            File file = new File("/Users/Downloads/1547823353303150duplicate.mp4");
+            File file = new File(tempFilePath);
             if(file.exists()&&file.isFile()){
 
-                long size = file.length();
+                buffer=new RandomAccessFile(tempFilePath,"rw").getChannel().map(FileChannel.MapMode.READ_WRITE, 0, 10);
 
-                buffer=new RandomAccessFile("/Users/Downloads/1547823353303150duplicate.mp4","rw").getChannel().map(FileChannel.MapMode.READ_WRITE, 0, 10);
-                int sum=0;
-                int n;
-                long t1=System.currentTimeMillis();
                 for(int i=0;i<10;i++){
-                    byte src=   buffer.get(i);
-                    //System.out.println("before :"+src);
+                    byte src=buffer.get(i);
                     src = (byte)(src^XOR);
-                    //System.out.println("after :"+src);
                     buffer.put(i,src);//修改Buffer中映射的字节的值
 
                 }
                 buffer.force();
                 buffer.clear();
-
-                //long t=System.currentTimeMillis()-t1;
-                //System.out.println("sum:"+sum+"  time:"+t);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -385,7 +376,7 @@ public class AESUtils {
     }
 
     public static void main(String[] args) {
-        String[] keys = {"vonechainsuperkey", "rootsuperkey"};
+        /*String[] keys = {"vonechainsuperkey", "rootsuperkey"};
         System.out.println("key | AESEncode | AESDecode");
         for (String key : keys) {
             System.out.print("key:"+key + " | ");
@@ -393,7 +384,12 @@ public class AESUtils {
             System.out.print(encryptString + " | ");
             String decryptString = AESDecode(encryptString);
             System.out.println(decryptString);
-        }
+        }*/
+        //encryptVideo(null);
+        String encode = AESEncode("this is test AES encode content ");
+        System.out.println(" encode " + encode);
+        String decode = AESDecode(encode);
+        System.out.println(" after decode : " + decode);
     }
 }
 
