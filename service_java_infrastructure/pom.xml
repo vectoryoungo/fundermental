@@ -56,14 +56,14 @@
 			<version>20050328</version>
 		</dependency>
 
-		<dependency>
+		<!--<dependency>
 			<groupId>cryptix-openpgp</groupId>
 			<artifactId>cryptix-openpgp-provider</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>cryptix-openpgp</groupId>
 			<artifactId>cryptix-message-api</artifactId>
-		</dependency>
+		</dependency>-->
 	</dependencies>
 
 	<build>
