@@ -3,6 +3,8 @@
  * file: Cpabe.java
  * date: 3/14/19 11:31 AM
  * author: VectorJu
+ * copyright: (c) 2018 www.onechain001.com Inc. All rights reserved.
+ * 注意：本内容仅限于上海旺链信息科技有限公司内部传阅，禁止外泄以及用于其他的商业目的，否则将依法追责。
  */
 
 package com.xlab.service_java_infrastructure.crypto;
@@ -52,13 +54,13 @@ public class Cpabe {
         masterKey.getPublicKey().writeToFile(publicKeyFile);
     }
 
-    public static AbePrivateKey keygen(AbeSecretMasterKey secretMaster, String attributes) throws Exception {
+    public static AbePrivateKey keygen(AbeSecretMasterKey secretMaster, String attributes) throws ParseException {
         String parsedAttributes = AttributeParser.parseAttributes(attributes);
         String[] splitAttributes = parsedAttributes.split(" ");
         return Bsw07.keygen(secretMaster, splitAttributes);
     }
 
-    public static void keygen(File privateFile, File secretMasterFile, String attributes) throws Exception {
+    public static void keygen(File privateFile, File secretMasterFile, String attributes) throws IOException,ParseException {
         AbeSecretMasterKey secretKey = AbeSecretMasterKey.readFromFile(secretMasterFile);
         AbePrivateKey prv = keygen(secretKey, attributes);
         prv.writeToFile(privateFile);

@@ -96,4 +96,43 @@ public class AbePublicKey {
             writeToStream(fos);
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{\n");
+
+        sb.append("    \"pairingDesc\":");
+        sb.append('"');
+        sb.append(pairingDesc);
+        sb.append('"');
+        sb.append(",\n");
+
+        sb.append("    \"g\":");
+        sb.append('"');
+        sb.append(g);
+        sb.append('"');
+        sb.append(",\n");
+
+        sb.append("    \"f\":");
+        sb.append('"');
+        sb.append(f);
+        sb.append('"');
+        sb.append(",\n");
+
+        sb.append("    \"h\":");
+        sb.append('"');
+        sb.append(h);
+        sb.append('"');
+        sb.append(",\n");
+        //e_g_g_hat_alpha
+
+        sb.append("    \"e_g_g_hat_alpha\":");
+        sb.append('"');
+        sb.append(e_g_g_hat_alpha);
+        sb.append('"');
+        sb.append(",\n");
+
+        return sb.toString();
+    }
 }

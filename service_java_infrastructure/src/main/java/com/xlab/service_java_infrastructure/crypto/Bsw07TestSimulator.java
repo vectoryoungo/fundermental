@@ -12,6 +12,8 @@
 package com.xlab.service_java_infrastructure.crypto;
 
 
+import javax.imageio.stream.FileImageInputStream;
+import java.io.*;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
@@ -57,7 +59,7 @@ public class Bsw07TestSimulator {
     public static void main(String[] args) {
         Bsw07TestSimulator bsw07TestSimulator = new Bsw07TestSimulator();
         try {
-            bsw07TestSimulator.addAttributesTest();
+            bsw07TestSimulator.restoreFromParam();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -92,7 +94,12 @@ public class Bsw07TestSimulator {
         AbeEncrypted policy1EncryptedTest5 = Cpabe.encrypt(pubKey, policy1, data);
         AbeEncrypted policy2EncryptedTest5 = Cpabe.encrypt(pubKey, policy2, data);*/
 
-        String att1att2Attribute = "att1";
+        //============================================================================
+
+        System.out.println("AbeEncrypted is " + policy1EncryptedTest1);
+
+
+        /*String att1att2Attribute = "att1";
         String att1Attribute = "att1";
 
         AbePrivateKey att1att2Key = Cpabe.keygen(smKey, att1att2Attribute);
@@ -105,7 +112,9 @@ public class Bsw07TestSimulator {
             System.out.println(" resultString is " + resultString);
         }else {
             System.out.println("not equals");
-        }
+        }*/
+
+        //============================================================================
 
         //assertTrue(Arrays.equals(data, decrypt(att1att2Key, policy1EncryptedTest1)));
         //assertFalse(Arrays.equals(data, decrypt(att1att2Key, policy2EncryptedTest1)));
@@ -127,6 +136,65 @@ public class Bsw07TestSimulator {
 
         //assertFalse(Arrays.equals(data, decrypt(att1att4Key, policy1EncryptedTest5)));
         //assertTrue(Arrays.equals(data, decrypt(att1att4Key, policy2EncryptedTest5)));
+    }
+
+    public void restoreFromParam() {
+
+        File inputFile = new File("/Users/juhongtao/abecrypttestfile.txt");
+        File encryptedFile = new File("a.enc");
+        File decryptedFile = new File("adec.txt");
+        File publicKey = new File("a.pkey");
+        File secretKey = new File("a.mkey");
+        File privateKey = new File("user.private");
+
+        try {
+            BufferedInputStream bin = new BufferedInputStream( new FileInputStream(inputFile));
+            int p = (bin.read() << 8) + bin.read();
+            String code = null;
+            switch (p) {
+                case 0xefbb:
+                    code = "UTF-8";
+                    break;
+                case 0xfffe:
+                    code = "Unicode";
+                    break;
+                case 0xfeff:
+                    code = "UTF-16BE";
+                    break;
+                case 0x5c75:
+                    code = "ANSI|ASCII" ;
+                    break ;
+                default:
+                    code = "GBK";
+            }
+            System.out.println("code is " + code);
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //inputFile.delete();
+        encryptedFile.delete();
+        decryptedFile.delete();
+        publicKey.delete();
+        secretKey.delete();
+        privateKey.delete();
+
+        try {
+            Cpabe.setup(publicKey, secretKey);
+            Cpabe.encrypt(publicKey, "a and b", inputFile, encryptedFile);
+            Cpabe.keygen(privateKey, secretKey, "a b c");
+            Cpabe.decrypt(privateKey, encryptedFile, decryptedFile);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }catch (AbeEncryptionException e) {
+            e.printStackTrace();
+        }catch (AbeDecryptionException e){
+            e.printStackTrace();
+        }catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }
 

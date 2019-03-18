@@ -1,0 +1,1 @@
+This crypto is a combination of using JCPABE(https://github.com/TU-Berlin-SNET/JCPABE.git) and jTR-ABE(https://github.com/TU-Berlin-SNET/jTR-ABE),Thanks for all of those great people.

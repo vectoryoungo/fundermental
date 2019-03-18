@@ -85,4 +85,22 @@ public class AbeEncrypted implements AutoCloseable {
     public void close() throws Exception {
         dataStream.close();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder(1024);
+        byte[] buffer = new byte[1024];
+        int len;
+        try {
+            while ((len = dataStream.read(buffer)) != -1) {
+                stringBuilder.append(dataStream.read(buffer));
+//            abeOut.write(buffer, 0, len);
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("can not read encrypt data "+e);
+        }
+
+        return stringBuilder.toString();
+    }
 }
