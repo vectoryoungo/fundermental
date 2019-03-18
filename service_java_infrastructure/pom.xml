@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ module: fundermental
+  ~ file: pom.xml
+  ~ date: 3/13/19 4:02 PM
+  ~ author: VectorJu
+  ~ copyright: (c) 2018 www.onechain001.com Inc. All rights reserved.
+  ~ 注意：本内容仅限于上海旺链信息科技有限公司内部传阅，禁止外泄以及用于其他的商业目的，否则将依法追责。
+  -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -34,6 +43,26 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>cryptix</groupId>
+			<artifactId>cryptix</artifactId>
+			<version>3.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>cryptix-jce</groupId>
+			<artifactId>cryptix-jce-provider</artifactId>
+			<version>20050328</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cryptix-openpgp</groupId>
+			<artifactId>cryptix-openpgp-provider</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cryptix-openpgp</groupId>
+			<artifactId>cryptix-message-api</artifactId>
 		</dependency>
 	</dependencies>
 

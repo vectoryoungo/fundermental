@@ -1,0 +1,90 @@
+/*
+ * module: fundermental
+ * file: AbeEncrypted.java
+ * date: 3/14/19 11:32 AM
+ * author: VectorJu
+ * copyright: (c) 2018 www.onechain001.com Inc. All rights reserved.
+ * 注意：本内容仅限于上海旺链信息科技有限公司内部传阅，禁止外泄以及用于其他的商业目的，否则将依法追责。
+ */
+
+package com.xlab.service_java_infrastructure.crypto;
+
+import it.unisa.dia.gas.jpbc.Element;
+
+import java.io.*;
+
+public class AbeEncrypted implements AutoCloseable {
+    Bsw07Cipher cipher;
+    byte[] iv;
+    InputStream dataStream; // the encrypted data
+
+    AbeEncrypted(byte[] iv, Bsw07Cipher cipher, InputStream dataStream) {
+        this.iv = iv;
+        this.cipher = cipher;
+        this.dataStream = dataStream;
+    }
+
+    public static AbeEncrypted readFromFile(AbePublicKey publicKey, File file) throws IOException {
+        return AbeEncrypted.readFromStream(publicKey, new BufferedInputStream(new FileInputStream(file)));
+    }
+
+    public static AbeEncrypted readFromStream(AbePublicKey publicKey, InputStream input) throws IOException {
+        AbeInputStream stream = new AbeInputStream(input, publicKey);
+        Version.readAndVerify(stream);
+        Bsw07Cipher cipher = Bsw07Cipher.readFromStream(stream);
+        int ivLength = stream.readInt();
+        byte[] iv = new byte[ivLength];
+        stream.readFully(iv);
+        return new AbeEncrypted(iv, cipher, input);
+    }
+
+    public static AbeEncrypted createDuringEncryption(byte[] iv, Bsw07Cipher cipher, InputStream input, Element plainSecret) throws AbeEncryptionException, IOException {
+        return new AbeEncrypted(iv, cipher, AesEncryption.encrypt(plainSecret.toBytes(), null, iv, input));
+    }
+
+    public static AbeEncrypted createDuringEncryption(byte[] iv, byte[] lbeKey, Bsw07Cipher cipher, InputStream input, Element plainSecret) throws AbeEncryptionException, IOException {
+        return new AbeEncrypted(iv, cipher, AesEncryption.encrypt(plainSecret.toBytes(), lbeKey, iv, input));
+    }
+
+    public Bsw07Cipher getCipher() {
+        return cipher;
+    }
+
+    public void writeEncryptedData(OutputStream out, AbePublicKey publicKey) throws IOException {
+        AbeOutputStream abeOut = new AbeOutputStream(out, publicKey);
+        Version.writeToStream(abeOut);
+        cipher.writeToStream(abeOut);
+        abeOut.writeInt(iv.length);
+        abeOut.write(iv);
+        byte[] buffer = new byte[1024];
+        int len;
+        while ((len = dataStream.read(buffer)) != -1) {
+            abeOut.write(buffer, 0, len);
+        }
+    }
+
+    /**
+     * Advances the stream to after the AES block.
+     *
+     * @param privateKey
+     * @param output
+     * @throws AbeDecryptionException
+     * @throws IOException
+     */
+    public void writeDecryptedData(AbePrivateKey privateKey, OutputStream output) throws AbeDecryptionException, IOException {
+        Element secret = Bsw07.decrypt(privateKey, cipher);
+        byte[] cpabeKey = secret.toBytes();
+        AesEncryption.decrypt(cpabeKey, null, iv, dataStream, output);
+    }
+
+    public void writeDecryptedData(AbePrivateKey privateKey, byte[] lbeKey, OutputStream output) throws AbeDecryptionException, IOException {
+        Element secret = Bsw07.decrypt(privateKey, cipher);
+        byte[] cpabeKey = secret.toBytes();
+        AesEncryption.decrypt(cpabeKey, lbeKey, iv, dataStream, output);
+    }
+
+    @Override
+    public void close() throws Exception {
+        dataStream.close();
+    }
+}
