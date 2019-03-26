@@ -8,15 +8,20 @@
 /**
  * @create 2019-03-19 09:47
  * @desc reading java collection source code
+ *
+ * java.lang.String.valueOf(Math.random()))
+ *
+ *
+ *
  **/
 package com.xlab.service_java_infrastructure.easycoding;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
-public class ArrayListSourceCodeReadingSimulator {
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+public class ArrayListSourceCodeReadingSimulator  extends Thread{
 
     public static void main(String[] args) {
 
@@ -24,7 +29,7 @@ public class ArrayListSourceCodeReadingSimulator {
         list.add("one");
         list.add("two");
         list.add("three");
-
+        showDiffereceBetweenExtendsAndSuperGeneric();
         //Object[] array1 = list.toArray();
         //System.out.println(" array1 size is " + array1.length);
         //String[] array2 = new String[2];
@@ -37,9 +42,35 @@ public class ArrayListSourceCodeReadingSimulator {
 
         //showDiffereceBetweenExtendsAndSuperGeneric();
 
-        showComparable();
+        /*showComparable();
         System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
         showComparator();
+        System.out.println("equals or not " + Objects.equals(new Animal(),new Animal()));
+        ArrayListSourceCodeReadingSimulator arrayListSourceCodeReadingSimulator = new ArrayListSourceCodeReadingSimulator();
+        arrayListSourceCodeReadingSimulator.start();
+        arrayListSourceCodeReadingSimulator.concurrentHashMapNPE();
+        Map map;
+        TreeMap treeMap;*/
+        HashMap hashMap = new HashMap();
+        hashMap.put("slot1",new Animal());
+        /*CopyOnWriteArrayList<Double> copyOnWriteArrayList = new CopyOnWriteArrayList<Double>();
+
+
+        for (int i=0;i<1000;i++) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("CURRENT " + Thread.currentThread().getName());
+                    System.out.println(" PRIORITY " + Thread.currentThread().getPriority());
+                    //System.out.println("CURRENT ID " + Thread.currentThread().getId());
+                    copyOnWriteArrayList.add(Math.random());
+                }
+            }).start();
+        }*/
+
+        /*for (Double doule:copyOnWriteArrayList) {
+            System.out.println(" double value is " + doule);
+        }*/
     }
 
 
@@ -93,6 +124,7 @@ public class ArrayListSourceCodeReadingSimulator {
         Cat catGet1 = (Cat) superCatFromCat.get(0);
         Garfield catGet2 = (Garfield)superCatFromCat.get(1);// this is illegal and will cause ClassCastException
         System.out.println("catGet1 " + catGet1);
+        //hashMap.put();
         //System.out.println("caatGet2 " +catGet2);
         //Incompatible types
         //Garfield garfield1 = extendsCatFromGarfield.get(0);
@@ -126,6 +158,15 @@ public class ArrayListSourceCodeReadingSimulator {
 
         System.out.println(" searchResult compare searchResultDuplicate result is " + searchResultComparator.compare(searchResult,searchResultDuplicate));
         System.out.println("now end showComparator");
+    }
+
+    public void concurrentHashMapNPE() {
+        ConcurrentHashMap<Object,Object> concurrentHashMap = new ConcurrentHashMap<Object, Object>();
+        concurrentHashMap.put("man",null);
+
+        String result = (String) concurrentHashMap.get("man");
+        System.out.println(result);
+
     }
 }
 
