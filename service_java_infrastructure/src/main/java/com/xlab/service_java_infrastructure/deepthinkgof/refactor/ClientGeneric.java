@@ -11,8 +11,6 @@
  **/
 package com.xlab.service_java_infrastructure.deepthinkgof.refactor;
 
-import static com.xlab.service_java_infrastructure.deepthinkgof.refactor.FactoryGeneric.createObject;
-
 public class ClientGeneric {
 
     public static void main(String[] args) {
