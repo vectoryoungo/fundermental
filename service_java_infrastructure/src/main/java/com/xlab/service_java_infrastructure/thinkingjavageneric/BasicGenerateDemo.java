@@ -20,6 +20,10 @@ public class BasicGenerateDemo {
         for (int i =0;i<5;i++) {
             System.out.println(countedObjectGenerator.next());
         }
+
+        ArrayOfGenericReference arrayOfGenericReference = new ArrayOfGenericReference();
+        System.out.println(arrayOfGenericReference);
+        System.out.println(ArrayOfGenericReference.gia.length);
     }
 }
 
