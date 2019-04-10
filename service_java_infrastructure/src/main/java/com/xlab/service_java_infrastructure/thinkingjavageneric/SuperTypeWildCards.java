@@ -11,8 +11,6 @@
  **/
 package com.xlab.service_java_infrastructure.thinkingjavageneric;
 
-import com.xlab.service_java_infrastructure.java8chapter9.A;
-
 import java.util.ArrayList;
 import java.util.List;
 
