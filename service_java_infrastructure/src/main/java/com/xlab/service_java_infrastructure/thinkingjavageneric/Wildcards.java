@@ -77,7 +77,7 @@ public class Wildcards {
         unboundedArg(unbounded,lng);
         unboundedArg(bouned,lng);
 
-        //Object object = exact1(raw);//according thinking in java this will lead warning but in java8 mac is not
+        Object object = exact1(raw);//according thinking in java this will lead warning but in java8 mac is not
         Long lo1 = exact1(qualified);
         Long ll = (Long) exact1(unbounded);// force cast
         Object o = exact1(unbounded);// this can be bounded
@@ -88,7 +88,16 @@ public class Wildcards {
         //Long long7 = exact2(unbounded,lng);// this is error
         //Long long8 = exact2(bouned,lng);// this is error the same as long7
 
-        Long long9 = wildSubType(raw,lng);//according
+        Long long9 = wildSubType(raw,lng);//according to thinking in java fourth edition this is will lead to unchecked conversion but in java8 mac is not
+        Long long10 = wildSubType(qualified,lng);
+        Object object11 = wildSubType(unbounded,lng);
+        Long long12 = wildSubType(bouned,lng);
+        Long long13 = (Long) wildSubType(unbounded,lng);
+        System.out.println(long13);
+        wildSuperType(raw,lng);//according to thinking in java fourth edition this will lead uncheck conversion but in java8 mac is not
+        //wildSuperType(unbounded,lng);//this is illegal
+        //wildSuperType(bouned,lng);//this is illegal
+
     }
 }
 
