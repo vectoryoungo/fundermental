@@ -8,6 +8,7 @@
 /**
  * @create 2019-04-10 09:15
  * @desc test of generic
+ * test of no limit wildcard
  **/
 package com.xlab.service_java_infrastructure.thinkingjavageneric;
 
