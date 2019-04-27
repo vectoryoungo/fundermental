@@ -15,6 +15,11 @@
 *.iws
 *.iml
 *.ipr
+a.enc
+a.mkey
+a.pkey
+adec.txt
+user.private
 
 ### NetBeans ###
 /nbproject/private/
