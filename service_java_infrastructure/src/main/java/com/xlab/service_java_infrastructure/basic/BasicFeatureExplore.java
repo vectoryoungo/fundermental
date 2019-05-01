@@ -11,13 +11,21 @@
  **/
 package com.xlab.service_java_infrastructure.basic;
 
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.TreeSet;
 
 public class BasicFeatureExplore {
 
     public static void main(String[] args) {
 
         HashMap hashMap  = new HashMap();
+        HashSet hashSet = new HashSet();
+        TreeSet treeSet = new TreeSet();
+        treeSet.add(new String("treeset test"));
+        Comparable comparable;
+        Comparator comparator;
 
         int number = 1 << 4;
         int numberTwo = 1 << 3;
