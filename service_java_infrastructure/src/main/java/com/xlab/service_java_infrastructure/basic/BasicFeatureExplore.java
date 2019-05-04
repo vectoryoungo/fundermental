@@ -11,10 +11,13 @@
  **/
 package com.xlab.service_java_infrastructure.basic;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.TreeSet;
+import java.util.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.concurrent.locks.StampedLock;
+
+import static java.util.concurrent.Executors.*;
 
 public class BasicFeatureExplore {
 
@@ -26,6 +29,28 @@ public class BasicFeatureExplore {
         treeSet.add(new String("treeset test"));
         Comparable comparable;
         Comparator comparator;
+        ThreadLocal threadLocal = null;
+        threadLocal.get();
+        threadLocal.set(null);
+        threadLocal.remove();
+        ReentrantLock reentrantLock;
+        StampedLock stampedLock;
+        ReentrantReadWriteLock reentrantReadWriteLock;
+        ArrayList arrayList = new ArrayList();
+        arrayList.add("she");
+        Callable callable;
+        Runnable runnable;
+        newSingleThreadExecutor();
+        newFixedThreadPool(10);
+        newCachedThreadPool().submit(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("submit");
+            }
+        });
+        newScheduledThreadPool(10);
+
+
 
         int number = 1 << 4;
         int numberTwo = 1 << 3;
