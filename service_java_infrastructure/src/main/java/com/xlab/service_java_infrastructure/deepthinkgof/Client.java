@@ -16,8 +16,19 @@ import org.springframework.beans.factory.FactoryBean;
 public class Client {
 
     public static void main(String[] args) {
-        Api api = new Impl();
-        api.test1("just a test for api ");
+        NewsPaper newsPaper = new NewsPaper();
+        Reader reader = new Reader();
+        reader.setName("Smith");
+        Reader copy = new Reader();
+        copy.setName("Larry");
+
+        newsPaper.attach(reader);
+        newsPaper.attach(copy);
+
+        newsPaper.setContent("this is washington newspaper and liberty will be win all the time");
+
+        newsPaper.detach(copy);
+        newsPaper.setContent("update newspaper ");
     }
 }
 
