@@ -1,7 +1,13 @@
-package com.xlab.service_java_infrastructure.architecture;
+/*
+ * module: fundermental
+ * file: Client.java
+ * date: 6/22/19 10:28 AM
+ * author: VectorJu
+ */
+
+package com.xlab.service_java_infrastructure.architecture.bio;
 
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import	java.io.BufferedReader;
