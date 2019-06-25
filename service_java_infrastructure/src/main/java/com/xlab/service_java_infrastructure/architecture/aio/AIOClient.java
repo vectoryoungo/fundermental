@@ -11,8 +11,6 @@
  **/
 package com.xlab.service_java_infrastructure.architecture.aio;
 
-import com.xlab.service_java_infrastructure.thinkingjavageneric.CountingGenerator;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
@@ -90,6 +88,5 @@ public class AIOClient {
             client.doDestory();
         }
     }
-
 }
 
