@@ -37,8 +37,8 @@ public class Server4NettyDemon {
         bootstrap.channel(NioServerSocketChannel.class);
         bootstrap.option(ChannelOption.SO_BACKLOG,1024);
         bootstrap.option(ChannelOption.SO_SNDBUF,16*1024)
-                .option(ChannelOption.SO_RCVBUF,16*1024)
-                .option(ChannelOption.SO_KEEPALIVE,true);
+                 .option(ChannelOption.SO_RCVBUF,16*1024)
+                 .option(ChannelOption.SO_KEEPALIVE,true);
 
 
     }
