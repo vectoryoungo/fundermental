@@ -18,6 +18,7 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.FixedLengthFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 
@@ -50,7 +51,8 @@ public class Client4FixedLength {
             protected void initChannel(SocketChannel ch) throws Exception {
                 ByteBuf delimiter = Unpooled.copiedBuffer("$E$".getBytes());
                 ChannelHandler[] handlers = new ChannelHandler[3];
-                handlers [0] = new FixedLengthFrameDecoder(3);
+                //handlers [0] = new FixedLengthFrameDecoder(3);
+                handlers [0] = new DelimiterBasedFrameDecoder(1024,delimiter);
                 handlers [1] = new StringDecoder(Charset.forName("UTF-8"));
                 handlers [2] = new Client4FixedLengthHandler();
                 ch.pipeline().addLast(handlers);

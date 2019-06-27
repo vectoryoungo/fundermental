@@ -28,7 +28,8 @@ public class Server4FixedLengthHandler extends ChannelHandlerAdapter{
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         String message = msg.toString();
         System.out.println(" from client : " + message);
-        String line = "ok ";
+        //String line = "ok ";
+        String line = "server message $E$ test delimiter handler !! $E$ second message $E$";
         ctx.writeAndFlush(Unpooled.copiedBuffer(line.getBytes("UTF-8")));
     }
 }
