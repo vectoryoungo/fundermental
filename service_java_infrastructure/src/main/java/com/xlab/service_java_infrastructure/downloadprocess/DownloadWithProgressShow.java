@@ -9,7 +9,7 @@
  * @create 2019-04-22 11:13
  * @desc test  download show progress
  **/
-package com.xlab.service_java_infrastructure.realworld;
+package com.xlab.service_java_infrastructure.downloadprocess;
 
 import java.io.File;
 import java.io.IOException;
