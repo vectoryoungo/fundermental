@@ -18,7 +18,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public class Server4Serializable {
-    private EventLoopGroup accetorGroup = null;
+    private EventLoopGroup acceptorGroup = null;
     private EventLoopGroup clientGroup = null;
     private ServerBootstrap bootstrap = null;
 
@@ -27,10 +27,10 @@ public class Server4Serializable {
     }
 
     private void init() {
-        accetorGroup = new NioEventLoopGroup();
+        acceptorGroup = new NioEventLoopGroup();
         clientGroup = new NioEventLoopGroup();
         bootstrap = new ServerBootstrap();
-        bootstrap.group(accetorGroup,clientGroup);
+        bootstrap.group(acceptorGroup,clientGroup);
         bootstrap.channel(NioServerSocketChannel.class);
         bootstrap.option(ChannelOption.SO_BACKLOG,1024);
         bootstrap.option(ChannelOption.SO_SNDBUF,10*1024)
@@ -61,7 +61,7 @@ public class Server4Serializable {
 
     public void release() {
         this.clientGroup.shutdownGracefully();
-        this.accetorGroup.shutdownGracefully();
+        this.acceptorGroup.shutdownGracefully();
     }
 
     public static void main(String[] args) {
