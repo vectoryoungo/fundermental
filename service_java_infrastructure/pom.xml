@@ -116,6 +116,14 @@
 			<version>1.6.3</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.kaazing</groupId>
+			<artifactId>sigar.dist</artifactId>
+			<version>1.0.0.0</version>
+			<classifier>distribution</classifier>
+			<type>zip</type>
+		</dependency>
+
 		<!--<dependency>
 			<groupId>cryptix-openpgp</groupId>
 			<artifactId>cryptix-openpgp-provider</artifactId>
