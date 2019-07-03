@@ -1,4 +1,4 @@
-package com.xlab.service_java_infrastructure.deepthinkgof;
+package com.xlab.service_java_infrastructure.deepthinkdesignpattern;
 
 import java.util.ArrayList;
 import java.util.List;

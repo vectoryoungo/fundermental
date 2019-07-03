@@ -9,7 +9,7 @@
  * @create 2019-04-07 09:42
  * @desc deepthinkofpattern api example
  **/
-package com.xlab.service_java_infrastructure.deepthinkgof;
+package com.xlab.service_java_infrastructure.deepthinkdesignpattern;
 
 public interface Api {
     public void test1(String s);

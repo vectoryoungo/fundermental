@@ -9,7 +9,7 @@
  * @create 2019-04-04 10:39
  * @desc refactor
  **/
-package com.xlab.service_java_infrastructure.deepthinkgof;
+package com.xlab.service_java_infrastructure.deepthinkdesignpattern;
 
 public class SimpleFactoryRefactor {
 

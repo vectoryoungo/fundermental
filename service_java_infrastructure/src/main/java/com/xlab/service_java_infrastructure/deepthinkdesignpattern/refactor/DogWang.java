@@ -9,7 +9,7 @@
  * @create 2019-04-07 10:12
  * @desc dog wang
  **/
-package com.xlab.service_java_infrastructure.deepthinkgof.refactor;
+package com.xlab.service_java_infrastructure.deepthinkdesignpattern.refactor;
 
 public class DogWang {
 

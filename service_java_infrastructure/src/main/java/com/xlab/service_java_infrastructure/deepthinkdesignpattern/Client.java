@@ -9,9 +9,7 @@
  * @create 2019-04-07 09:43
  * @desc test of deepthinkpattern client
  **/
-package com.xlab.service_java_infrastructure.deepthinkgof;
-
-import org.springframework.beans.factory.FactoryBean;
+package com.xlab.service_java_infrastructure.deepthinkdesignpattern;
 
 public class Client {
 

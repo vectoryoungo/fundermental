@@ -9,7 +9,7 @@
  * @create 2019-04-07 09:54
  * @desc refactor of without desgin pattern
  **/
-package com.xlab.service_java_infrastructure.deepthinkgof.refactor;
+package com.xlab.service_java_infrastructure.deepthinkdesignpattern.refactor;
 
 public interface Api {
     public void operation(String s);

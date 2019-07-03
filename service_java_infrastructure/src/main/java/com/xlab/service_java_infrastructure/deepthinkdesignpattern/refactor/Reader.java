@@ -1,4 +1,4 @@
-package com.xlab.service_java_infrastructure.deepthinkgof.refactor;
+package com.xlab.service_java_infrastructure.deepthinkdesignpattern.refactor;
 
 import java.util.Observable;
 import java.util.Observer;

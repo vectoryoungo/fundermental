@@ -1,6 +1,4 @@
-package com.xlab.service_java_infrastructure.deepthinkgof;
-
-import java.util.Observable;
+package com.xlab.service_java_infrastructure.deepthinkdesignpattern;
 
 public class NewsPaper extends Subject {
 

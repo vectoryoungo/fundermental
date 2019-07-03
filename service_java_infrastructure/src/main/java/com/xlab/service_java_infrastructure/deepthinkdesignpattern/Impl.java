@@ -9,7 +9,7 @@
  * @create 2019-04-07 09:42
  * @desc implementation of api
  **/
-package com.xlab.service_java_infrastructure.deepthinkgof;
+package com.xlab.service_java_infrastructure.deepthinkdesignpattern;
 
 public class Impl implements Api{
     @Override
