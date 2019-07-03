@@ -11,8 +11,10 @@
  **/
 package com.xlab.service_java_infrastructure.disruptor;
 
+import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.dsl.Disruptor;
+import com.lmax.disruptor.dsl.ProducerType;
 import com.lmax.disruptor.util.DaemonThreadFactory;
 
 import java.nio.ByteBuffer;
@@ -28,7 +30,10 @@ public class LongEventMain {
         int bufferSize = 1024;
 
         // Construct the Disruptor
-        Disruptor<LongEvent> disruptor = new Disruptor<>(factory, bufferSize, DaemonThreadFactory.INSTANCE);
+        //Disruptor<LongEvent> disruptor = new Disruptor<>(factory, bufferSize, DaemonThreadFactory.INSTANCE);
+        // Construct the Disruptor with a SingleProducerSequencer
+        Disruptor<LongEvent> disruptor = new Disruptor(
+                factory, bufferSize, DaemonThreadFactory.INSTANCE, ProducerType.SINGLE, new BlockingWaitStrategy());
 
         // Connect the handler
         disruptor.handleEventsWith(new LongEventHandler());
@@ -46,7 +51,7 @@ public class LongEventMain {
         {
             bb.putLong(0, l);
             producer.onData(bb);
-            Thread.sleep(1000);
+            Thread.sleep(10);
         }
     }
 }
