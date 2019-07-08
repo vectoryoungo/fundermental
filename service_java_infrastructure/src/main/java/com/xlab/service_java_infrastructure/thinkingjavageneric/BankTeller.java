@@ -25,7 +25,7 @@ public class BankTeller {
     public static void main(String[] args) {
         Random random = new Random(47);
         Queue<Customer> line = new LinkedList<Customer>();
-        
+
     }
 }
 
