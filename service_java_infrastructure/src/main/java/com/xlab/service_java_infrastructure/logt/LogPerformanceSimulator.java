@@ -15,6 +15,8 @@ package com.xlab.service_java_infrastructure.logt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * 日志不同级别的使用
  *
@@ -108,17 +110,31 @@ public class LogPerformanceSimulator {
     private static final Logger logger = LoggerFactory.getLogger(LogPerformanceSimulator.class);
 
 
-    private static void showPerformaceLog(String key,String content) {
+    private static void showPerformaceLog(String key,String content,int branch) {
         //不要进行字符串拼接,那样会产生很多String对象，占用空间，影响性能
         //对于debug日志，必须判断是否为debug级别后，才进行使用:
         //使用[]进行参数变量隔离
-        if (logger.isDebugEnabled()) {
-            logger.debug("Mac Processing trade with key:[{}] and content : [{}] ", key, content);
+
+        if (branch == 1) {
+            if (logger.isDebugEnabled()) {
+                long start = System.nanoTime();
+                logger.debug("Mac Processing trade with key:[{}] and content : [{}] ", key, content);
+                long end = System.nanoTime()-start;
+                System.out.println("performance it takes " + TimeUnit.NANOSECONDS.toNanos(end));
+            }
+        }else {
+            if (logger.isDebugEnabled()) {
+                long start = System.nanoTime();
+                logger.debug("Mac Processing trade with string concat key " + key + " content " + content);
+                long end = System.nanoTime()-start;
+                System.out.println("string concat takes " + TimeUnit.NANOSECONDS.toNanos(end));
+            }
         }
     }
 
     public static void main(String[] args) {
-        showPerformaceLog("vector" ,"update user balance");
+        showPerformaceLog("vector" ,"update user balance",1);
+        //System.out.println(" it takes " + TimeUnit.NANOSECONDS.toSeconds(estimatedTime));
     }
 }
 
