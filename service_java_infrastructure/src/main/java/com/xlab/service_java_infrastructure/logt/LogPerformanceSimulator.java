@@ -116,19 +116,24 @@ public class LogPerformanceSimulator {
         //使用[]进行参数变量隔离
 
         if (branch == 1) {
-            if (logger.isDebugEnabled()) {
-                long start = System.nanoTime();
-                logger.debug("Mac Processing trade with key:[{}] and content : [{}] ", key, content);
-                long end = System.nanoTime()-start;
-                System.out.println("performance it takes " + TimeUnit.NANOSECONDS.toNanos(end));
+            long start = System.nanoTime();
+            for (int i=0;i<10000;i++) {
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Mac Processing trade with key:[{}] and content : [{}] ", key, content);
+                }
             }
+            long end = System.nanoTime()-start;
+            System.out.println("performance it takes " + TimeUnit.NANOSECONDS.toMillis(end));
+
         }else {
-            if (logger.isDebugEnabled()) {
-                long start = System.nanoTime();
-                logger.debug("Mac Processing trade with string concat key " + key + " content " + content);
-                long end = System.nanoTime()-start;
-                System.out.println("string concat takes " + TimeUnit.NANOSECONDS.toNanos(end));
+            long start = System.nanoTime();
+            for (int i=0;i<10000;i++) {
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Mac Processing trade with string concat key " + key + " content " + content);
+                }
             }
+            long end = System.nanoTime()-start;
+            System.out.println("string concat takes " + TimeUnit.NANOSECONDS.toMillis(end));
         }
     }
 
