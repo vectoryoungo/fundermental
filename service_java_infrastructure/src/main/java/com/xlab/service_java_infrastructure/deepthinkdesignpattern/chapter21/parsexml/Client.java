@@ -24,15 +24,25 @@ public class Client {
         ElementExpression root = new ElementExpression("root");
         ElementExpression aElement=new ElementExpression("a");
         ElementExpression bElement=new ElementExpression("b");
-        ElementTerminalExpression cElement=new ElementTerminalExpression("c");
+        ElementExpression cElement = new ElementExpression("c");
+        ElementTerminalExpression cElementTerminal=new ElementTerminalExpression("c");
+        PropertyTerminalExpression propertyTermial = new PropertyTerminalExpression("name");
         root.addElement(aElement);
         aElement.addElement(bElement);
         bElement.addElement(cElement);
+        cElement.addElement(propertyTermial);
+
         String[] container = root.interpret(context);
 
         for (String string:container) {
             System.out.println(" the value of container is " + string);
         }
+
+        context.reInit();
+        String[] temp = root.interpret(context);
+        System.out.println("reInit value is " + temp[0]);
+
+
 
     }
 }
