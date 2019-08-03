@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root id="spiderNet">
+    <a>
+        <b>
+            <c name="superTony">NuclearPower</c>
+            <d id="pistol1">P1</d>
+            <d id="pistol2">P2</d>
+            <d id="pistol3">P3</d>
+            <d id="pistol4">P4</d>
+        </b>
+    </a>
+</root>
