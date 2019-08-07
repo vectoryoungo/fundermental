@@ -96,7 +96,7 @@ public class IPLOSTW10 {
                        result[1][i] = result[0][i + 1].duplicate().negate();
                        result[1][i + 1] = pairing.getZr().newOneElement();
                    }
-           }
+       }
       return result;
   }
 
