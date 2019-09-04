@@ -11,10 +11,10 @@
  **/
 package com.xlab.service_java_infrastructure.basic;
 
+import com.xlab.service_java_infrastructure.basic.map.MyCallable;
+
 import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.StampedLock;
@@ -25,7 +25,7 @@ public class BasicFeatureExplore {
 
     public static void main(String[] args) {
 
-        HashMap hashMap  = new HashMap();
+        /*HashMap hashMap  = new HashMap();
         HashSet hashSet = new HashSet();
         TreeSet treeSet = new TreeSet();
         treeSet.add(new String("treeset test"));
@@ -86,7 +86,10 @@ public class BasicFeatureExplore {
         process(10);
         int numbersN = 4;
         int numnberNN = 4;
-        System.out.println(numbersN | numnberNN);
+        System.out.println(numbersN | numnberNN);*/
+
+        BasicFeatureExplore basicFeatureExplore = new BasicFeatureExplore();
+        basicFeatureExplore.executorTest(4);
 
     }
 
@@ -105,6 +108,34 @@ public class BasicFeatureExplore {
         System.out.println(" fourth >>>8 is " + n);
         n |= n >>> 16;
         System.out.println(" fifth >>> 16 is " + n);*/
+    }
+
+    public void executorTest(int taskSize) {
+        //创建一个线程池
+        ExecutorService pool = Executors.newFixedThreadPool(taskSize);
+        // 创建多个有返回值的任务
+        List<Future> list = new ArrayList<Future>();
+        for (int i = 0; i < taskSize; i++) {
+            Callable c = new MyCallable(i + " MyCallable Instance ");
+            // 执行任务并获取Future 对象
+            Future f = pool.submit(c);
+            list.add(f);
+        }
+        // 关闭线程池
+        pool.shutdown();
+        // 获取所有并发任务的运行结果
+        for (Future f : list) {
+            try {
+                if (f.isDone()) {
+                    // 从Future 对象上获取任务的返回值，并输出到控制台
+                    System.out.println("res：" + f.get().toString());
+                }
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
 
