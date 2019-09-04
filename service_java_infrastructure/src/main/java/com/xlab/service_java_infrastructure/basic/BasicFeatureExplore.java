@@ -13,6 +13,7 @@ package com.xlab.service_java_infrastructure.basic;
 
 import java.util.*;
 import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.StampedLock;
@@ -40,6 +41,11 @@ public class BasicFeatureExplore {
         arrayList.add("she");
         Callable callable;
         Runnable runnable;
+        Executors.newFixedThreadPool(4);
+        Executors.newSingleThreadExecutor();
+        Executors.newScheduledThreadPool(4);
+        Executors.newCachedThreadPool();
+        Executors.newWorkStealingPool();
         newSingleThreadExecutor();
         newFixedThreadPool(10);
         newCachedThreadPool().submit(new Runnable() {
