@@ -36,14 +36,13 @@ public class ReentrantLockSimulator {
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
+            System.out.println(" exception ....");
         } finally {
             lock.unlock();
+            System.out.println(" unlock ");
         }
     }
 
-    public static void main(String[] args) {
-        ReentrantLockSimulator reentrantLockSimulator = new ReentrantLockSimulator();
-        reentrantLockSimulator.testMethod();
-    }
+
 }
 
