@@ -14,6 +14,8 @@ package com.xlab.service_java_infrastructure.basic;
 import com.xlab.service_java_infrastructure.basic.map.MyCallable;
 
 import java.util.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -25,6 +27,9 @@ public class BasicFeatureExplore {
 
     public static void main(String[] args) {
 
+        HashMap hashMap  = new HashMap();
+        ConcurrentHashMap<Object,Object> concurrentHashMap = new ConcurrentHashMap<>();
+        concurrentHashMap.put("","");
         /*HashMap hashMap  = new HashMap();
         HashSet hashSet = new HashSet();
         TreeSet treeSet = new TreeSet();
