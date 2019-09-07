@@ -27,7 +27,7 @@ public class OutOfMemoryWithBigObject {
             }
             world.setDiversion("ThisisDiversion");
             world.setObject(new Object());
-            world.setContains(temp);
+            //world.setContains(temp);
         }
     }
 }

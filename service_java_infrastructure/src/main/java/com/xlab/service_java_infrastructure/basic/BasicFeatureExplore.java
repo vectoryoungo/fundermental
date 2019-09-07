@@ -17,6 +17,7 @@ import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.StampedLock;
@@ -39,6 +40,7 @@ public class BasicFeatureExplore {
         threadLocal.get();
         threadLocal.set(null);
         threadLocal.remove();
+        ReadWriteLock readWriteLock;//this is an interface
         ReentrantLock reentrantLock;
         StampedLock stampedLock;
         ReentrantReadWriteLock reentrantReadWriteLock;

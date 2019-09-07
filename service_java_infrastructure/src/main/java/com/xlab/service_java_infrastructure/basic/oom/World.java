@@ -18,7 +18,8 @@ public class World {
 
     private Object object;
     private String diversion;
-    private List<Object> contains = new ArrayList<>(1000);
+    private int diversity;
+    //private List<Object> contains = new ArrayList<>(1000);
 
 
     public Object getObject() {
@@ -36,6 +37,7 @@ public class World {
     public void setDiversion(String diversion) {
         this.diversion = diversion;
     }
+/*
 
     public List<Object> getContains() {
         return contains;
@@ -43,6 +45,15 @@ public class World {
 
     public void setContains(List<Object> contains) {
         this.contains = contains;
+    }
+*/
+
+    public int getDiversity() {
+        return diversity;
+    }
+
+    public void setDiversity(int diversity) {
+        this.diversity = diversity;
     }
 }
 
