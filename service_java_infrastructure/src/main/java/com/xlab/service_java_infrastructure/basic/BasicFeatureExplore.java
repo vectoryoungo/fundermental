@@ -27,10 +27,9 @@ public class BasicFeatureExplore {
 
     public static void main(String[] args) {
 
-        HashMap hashMap  = new HashMap();
         ConcurrentHashMap<Object,Object> concurrentHashMap = new ConcurrentHashMap<>();
         concurrentHashMap.put("","");
-        /*HashMap hashMap  = new HashMap();
+        HashMap hashMap  = new HashMap();
         HashSet hashSet = new HashSet();
         TreeSet treeSet = new TreeSet();
         treeSet.add(new String("treeset test"));
@@ -91,7 +90,7 @@ public class BasicFeatureExplore {
         process(10);
         int numbersN = 4;
         int numnberNN = 4;
-        System.out.println(numbersN | numnberNN);*/
+        System.out.println(numbersN | numnberNN);
 
         BasicFeatureExplore basicFeatureExplore = new BasicFeatureExplore();
         basicFeatureExplore.executorTest(4);
