@@ -64,6 +64,37 @@ public class UnsafeCASSimulator {
             //unsafe.allocateInstance(World.class) will lead this exception
         }
 
+        UnsafeCASSimulator unsafeCASSimulator = new UnsafeCASSimulator();
+        unsafeCASSimulator.simulator();
+
+    }
+
+    public void simulator() {
+        World world = new World();
+        Field theUnsafe = null;
+        try {
+            theUnsafe = Unsafe.class.getDeclaredField("theUnsafe");
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        theUnsafe.setAccessible(true);
+        Unsafe UNSAFE = null;
+        try {
+            UNSAFE = (Unsafe) theUnsafe.get(null);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        System.out.println(UNSAFE.toString());
+        Field filed = null;
+        try {
+            filed = world.getClass().getDeclaredField("diversity");
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        long worldOffset = UNSAFE.objectFieldOffset(filed);
+        System.out.println("value worldOffset is " + worldOffset);
+        UNSAFE.putInt(world, worldOffset, 100);
+        System.out.println(world.getDiversity());
     }
 }
 
