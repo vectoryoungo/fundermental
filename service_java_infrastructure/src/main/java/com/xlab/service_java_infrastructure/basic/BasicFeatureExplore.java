@@ -26,10 +26,22 @@ import static java.util.concurrent.Executors.*;
 
 public class BasicFeatureExplore {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException{
 
         ConcurrentHashMap<Object,Object> concurrentHashMap = new ConcurrentHashMap<>();
         concurrentHashMap.put("","");
+        Queue queue = new ArrayBlockingQueue(1,true);
+        Queue link = new LinkedBlockingQueue(1);
+        Queue priority = new PriorityBlockingQueue();
+        DelayQueue delayQueue = new DelayQueue();
+        SynchronousQueue synchronousQueue = new SynchronousQueue();
+        LinkedTransferQueue linkedTransferQueue = new LinkedTransferQueue();
+        linkedTransferQueue.tryTransfer(new Object());
+        linkedTransferQueue.transfer(new Object());
+        LinkedBlockingDeque linkedBlockingDeque = new LinkedBlockingDeque();
+        LinkedBlockingQueue linkedBlockingQueue = new LinkedBlockingQueue();
+        BlockingQueue blockingQueue;
+        ArrayBlockingQueue arrayBlockingQueue;
         HashMap hashMap  = new HashMap();
         HashSet hashSet = new HashSet();
         TreeSet treeSet = new TreeSet();
@@ -48,6 +60,10 @@ public class BasicFeatureExplore {
         arrayList.add("she");
         Callable callable;
         Runnable runnable;
+        Executor executor;// an interface of thread pool only one execute method
+        //ExecutorService extends Executor,AbstractExecutorService implements ExecutorService.
+        //ThreadPoolExecutor extends AbstractExecutorService
+        // inner of Executors is use ThreadPoolExecutor as specific implementation
         ExecutorService executorService;
         Thread thread = new Thread();
         thread.stop();
