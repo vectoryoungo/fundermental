@@ -42,6 +42,9 @@ public class BasicFeatureExplore {
         LinkedBlockingQueue linkedBlockingQueue = new LinkedBlockingQueue();
         BlockingQueue blockingQueue;
         ArrayBlockingQueue arrayBlockingQueue;
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(1);
+        CountDownLatch countDownLatch = new CountDownLatch(2);
+        Semaphore semaphore = new Semaphore(1);
         HashMap hashMap  = new HashMap();
         HashSet hashSet = new HashSet();
         TreeSet treeSet = new TreeSet();
