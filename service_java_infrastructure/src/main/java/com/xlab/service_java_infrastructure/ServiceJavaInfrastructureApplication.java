@@ -9,13 +9,17 @@
 
 package com.xlab.service_java_infrastructure;
 
+import com.xlab.service_java_infrastructure.spring.Person;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 public class ServiceJavaInfrastructureApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ServiceJavaInfrastructureApplication.class, args);
+		ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(ServiceJavaInfrastructureApplication.class, args);
+		Person person = (Person) configurableApplicationContext.getBean("person");
+		System.out.println(person.getName());
 	}
 }
