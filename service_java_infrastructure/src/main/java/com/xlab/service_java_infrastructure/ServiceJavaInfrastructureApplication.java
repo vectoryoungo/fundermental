@@ -21,5 +21,6 @@ public class ServiceJavaInfrastructureApplication {
 		ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(ServiceJavaInfrastructureApplication.class, args);
 		Person person = (Person) configurableApplicationContext.getBean("person");
 		System.out.println(person.getName());
+		configurableApplicationContext.close();
 	}
 }
