@@ -12,6 +12,10 @@
 package com.xlab.service_java_infrastructure.spring;
 
 import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
+import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext;
+import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractXmlApplicationContext;
 
 import java.lang.reflect.Proxy;
 
@@ -21,6 +25,10 @@ public class SpringFeatureSimulator {
         Proxy proxy;
         AopAutoConfiguration.CglibAutoProxyConfiguration cglibAutoProxyConfiguration;
         AopAutoConfiguration.JdkDynamicAutoProxyConfiguration jdkDynamicAutoProxyConfiguration;
+        AnnotationConfigServletWebServerApplicationContext annotationConfigServletWebServerApplicationContext;
+        AnnotationConfigReactiveWebServerApplicationContext annotationConfigReactiveWebServerApplicationContext;
+        AnnotationConfigApplicationContext annotationConfigApplicationContext;
+        AbstractXmlApplicationContext abstractXmlApplicationContext;
     }
 }
 
