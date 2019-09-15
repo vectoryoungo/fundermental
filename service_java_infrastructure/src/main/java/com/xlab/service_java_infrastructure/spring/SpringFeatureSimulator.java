@@ -15,6 +15,7 @@ import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
 import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.AbstractXmlApplicationContext;
 
@@ -29,6 +30,7 @@ public class SpringFeatureSimulator {
         //AopAutoConfiguration.JdkDynamicAutoProxyConfiguration jdkDynamicAutoProxyConfiguration;
         //AnnotationConfigServletWebServerApplicationContext annotationConfigServletWebServerApplicationContext;
         //AnnotationConfigReactiveWebServerApplicationContext annotationConfigReactiveWebServerApplicationContext;
+        ClassPathScanningCandidateComponentProvider classPathScanningCandidateComponentProvider;
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext();
         annotationConfigApplicationContext.register(SpringFeatureSimulator.class);
         annotationConfigApplicationContext.refresh();
