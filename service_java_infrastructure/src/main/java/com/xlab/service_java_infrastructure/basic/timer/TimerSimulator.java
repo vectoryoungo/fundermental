@@ -17,13 +17,15 @@ import java.util.Timer;
 
 /**
  * run result :
- * current date time is Sun Sep 29 16:38:40 CST 2019
- * planning run date time is Sun Sep 29 16:38:40 CST 2019
- * MailTask start run ......
- * MailTask remove itself
+ * current date time is Sun Sep 29 16:45:48 CST 2019
+ * planning run date time is Sun Sep 29 16:45:48 CST 2019
+ * MailTaskWithoutCancel
  * SmsTask start run.....
  * SmsTask start run.....
+ * MailTaskWithoutCancel
  * SmsTask start run.....
+ * MailTaskWithoutCancel
+ * MailTaskWithoutCancel
  * SmsTask start run.....
  * task finish.
  *
@@ -35,7 +37,7 @@ public class TimerSimulator {
         Calendar calendar = Calendar.getInstance();
         Date runDate = calendar.getTime();
         System.out.println("planning run date time is " + runDate);
-        MailTask mailTask = new MailTask();
+        MailTaskWithoutCancel mailTask = new MailTaskWithoutCancel();
         SmsTask smsTask = new SmsTask();
         Timer timer = new Timer();
         timer.schedule(mailTask,runDate,3000);
