@@ -11,6 +11,8 @@
  **/
 package com.xlab.service_java_infrastructure.spring;
 
+import org.apache.tomcat.jdbc.pool.PoolConfiguration;
+import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
 import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
@@ -31,6 +33,7 @@ public class SpringFeatureSimulator {
         //AnnotationConfigServletWebServerApplicationContext annotationConfigServletWebServerApplicationContext;
         //AnnotationConfigReactiveWebServerApplicationContext annotationConfigReactiveWebServerApplicationContext;
         ClassPathScanningCandidateComponentProvider classPathScanningCandidateComponentProvider;
+        PoolProperties poolProperties = new PoolProperties();
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext();
         annotationConfigApplicationContext.register(SpringFeatureSimulator.class);
         annotationConfigApplicationContext.refresh();

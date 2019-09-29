@@ -139,6 +139,28 @@
 			<groupId>cryptix-openpgp</groupId>
 			<artifactId>cryptix-message-api</artifactId>
 		</dependency>-->
+
+		<!--test tomcat-jdbc-->
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jdbc</artifactId>
+			<version>8.5.35</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jdbc -->
+		<!--<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jdbc</artifactId>
+			<version>9.0.24</version>
+		</dependency>-->
+
+		<!-- https://mvnrepository.com/artifact/io.shardingjdbc/sharding-jdbc-core -->
+		<!--<dependency>
+			<groupId>io.shardingjdbc</groupId>
+			<artifactId>sharding-jdbc-core</artifactId>
+			<version>2.0.3</version>
+		</dependency>-->
+
 	</dependencies>
 
 	<build>
