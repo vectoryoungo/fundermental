@@ -19,7 +19,10 @@ import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebSe
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.AbstractXmlApplicationContext;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.PropertySource;
 
 import java.lang.reflect.Proxy;
 
@@ -39,6 +42,9 @@ public class SpringFeatureSimulator {
         annotationConfigApplicationContext.refresh();
         InjectionInnerClass injectionInnerClass = annotationConfigApplicationContext.getBean(InjectionInnerClass.class);
         injectionInnerClass.msgNotification();
+        PropertySource propertySource;
+        Environment environment;
+        AbstractApplicationContext abstractApplicationContext;
         //AbstractXmlApplicationContext abstractXmlApplicationContext;
     }
 
