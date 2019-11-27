@@ -21,6 +21,10 @@ import org.apache.http.util.EntityUtils;
 import java.io.*;
 import java.math.BigDecimal;
 import java.net.URI;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -29,6 +33,7 @@ import java.util.Map;
 import org.apache.poi.hssf.usermodel.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 public class GetAndGenerateExcel {
 
@@ -61,16 +66,14 @@ public class GetAndGenerateExcel {
         HSSFCell cell4 = row.createCell(3);
         cell4.setCellValue("变动");
         cell4.setCellStyle(style);
-        String url = "https://qtum.info/api/address/QZDJya5Szfux2op7qhHUGKsBT4eGiyTPkH/txs?limit=100&offset=0&reversed=false";
-        String result = doGet(url);
-        System.out.println("result is " + result);
-        List<Transaction> transactionList = getTransactionList(result);
+
+        List<Transaction> transactionList = getTransactionList();
 
         for (int i=0;i<transactionList.size();i++) {
             row = sheet.createRow(i+1);
-            //row.createCell(0).setCellValue(transactionList.get(i).getTimestamp());
+            row.createCell(0).setCellValue(transactionList.get(i).getTimestamp());
             row.createCell(1).setCellValue(transactionList.get(i).getTransactionId());
-            //row.createCell(2).setCellValue(Double.valueOf(transactionList.get(i).getBalance().toPlainString()));
+            row.createCell(2).setCellValue(Double.valueOf(transactionList.get(i).getBalance().toPlainString()));
             row.createCell(3).setCellValue(transactionList.get(i).getRange());
         }
 
@@ -84,32 +87,35 @@ public class GetAndGenerateExcel {
         }
     }
 
-    public static List<Transaction> getTransactionList(String url) {
-        List<Transaction> transactions = new ArrayList<>();
-        JSONObject transactionsList =  (JSONObject) JSON.parse(url);
-        Integer totalCount = transactionsList.getInteger("totalCount");
-        JSONArray jsonArray = transactionsList.getJSONArray("transactions");
+    public static List<Transaction> getTransactionList() {
+        List<Transaction> transactionList = new ArrayList<>();
 
-        Iterator iterator = jsonArray.iterator();
+        String balanceHistory = doGet("https://qtum.info/api/address/Qc6iYCZWn4BauKXGYirRG8pMtgdHMk2dzn/balance-history?limit=100&offset=0");
+        JSONObject  balanceHistoryJson = (JSONObject) JSON.parse(balanceHistory);
+        JSONArray jsonArrayBalance = balanceHistoryJson.getJSONArray("transactions");
+        Iterator iterator = jsonArrayBalance.iterator();
 
         while (iterator.hasNext()) {
             Transaction transaction = new Transaction();
-            transaction.setTransactionId(iterator.next().toString());
-            String txString = "https://qtum.info/api/tx/" +iterator.next().toString();
-            String txJsonResult = doGet(txString);
-            JSONObject transactionDetail =  (JSONObject) JSON.parse(txJsonResult);
-            String feeString = transactionDetail.getString("fees");
-            BigDecimal bigDecimal = new BigDecimal(feeString);
-            if (bigDecimal.compareTo(BigDecimal.ZERO) > 0) {
-                transaction.setRange("-"+feeString);
-            }else if (bigDecimal.compareTo(BigDecimal.ZERO) < 0) {
-                transaction.setRange("+"+feeString);
+            JSONObject jsonObject = (JSONObject) iterator.next();
+            String txid = jsonObject.getString("id");
+            String timestamp = jsonObject.getString("timestamp");
+            String amount = jsonObject.getString("amount");
+            String balance = jsonObject.getString("balance");
+            if (new BigDecimal(amount).compareTo(BigDecimal.ZERO) > 0) {
+                transaction.setRange("+" + amount);
+            }else if (new BigDecimal(amount).compareTo(BigDecimal.ZERO) < 0) {
+                transaction.setRange("-" + amount);
             }else {
                 transaction.setRange("0");
             }
-            transactions.add(transaction);
+
+            transaction.setTransactionId(txid);
+            transaction.setBalance(new BigDecimal(balance));
+            transaction.setTimestamp(convertTimeToString(Long.valueOf(timestamp)));
+            transactionList.add(transaction);
         }
-        return transactions;
+        return transactionList;
     }
 
     /**
@@ -237,5 +243,11 @@ public class GetAndGenerateExcel {
             }
         }
         return null;
+    }
+
+    private static String convertTimeToString(Long time){
+        Assert.notNull(time, "time is null");
+        DateTimeFormatter ftf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return ftf.format(LocalDateTime.ofInstant(Instant.ofEpochSecond(time),ZoneId.systemDefault()));
     }
 }
