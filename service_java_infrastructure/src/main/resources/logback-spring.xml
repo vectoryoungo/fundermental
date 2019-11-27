@@ -90,7 +90,7 @@
         root:logger的根节点,appender-ref:确定使用哪个appender,将日志信息显示在console
         注:如果不指定配置此项的话,那么SpringBoot启动后,将不会在console打印任何信息
     -->
-    <root level="debug">
+    <root level="error">
         <appender-ref ref="fileAppender" />
     </root>
 </configuration>
