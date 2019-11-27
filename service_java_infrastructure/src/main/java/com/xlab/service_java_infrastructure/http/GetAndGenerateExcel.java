@@ -19,6 +19,7 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -60,7 +61,7 @@ public class GetAndGenerateExcel {
         HSSFCell cell4 = row.createCell(3);
         cell4.setCellValue("变动");
         cell4.setCellStyle(style);
-        String url = "https://qtum.info/api/address/QZDJya5Szfux2op7qhHUGKsBT4eGiyTPkH/txs?limit=10000&offset=0&reversed=false";
+        String url = "https://qtum.info/api/address/QZDJya5Szfux2op7qhHUGKsBT4eGiyTPkH/txs?limit=100&offset=0&reversed=false";
         String result = doGet(url);
         System.out.println("result is " + result);
         List<Transaction> transactionList = getTransactionList(result);
@@ -70,7 +71,7 @@ public class GetAndGenerateExcel {
             //row.createCell(0).setCellValue(transactionList.get(i).getTimestamp());
             row.createCell(1).setCellValue(transactionList.get(i).getTransactionId());
             //row.createCell(2).setCellValue(Double.valueOf(transactionList.get(i).getBalance().toPlainString()));
-            //row.createCell(3).setCellValue(transactionList.get(i).getRange());
+            row.createCell(3).setCellValue(transactionList.get(i).getRange());
         }
 
         try {
@@ -94,6 +95,18 @@ public class GetAndGenerateExcel {
         while (iterator.hasNext()) {
             Transaction transaction = new Transaction();
             transaction.setTransactionId(iterator.next().toString());
+            String txString = "https://qtum.info/api/tx/" +iterator.next().toString();
+            String txJsonResult = doGet(txString);
+            JSONObject transactionDetail =  (JSONObject) JSON.parse(txJsonResult);
+            String feeString = transactionDetail.getString("fees");
+            BigDecimal bigDecimal = new BigDecimal(feeString);
+            if (bigDecimal.compareTo(BigDecimal.ZERO) > 0) {
+                transaction.setRange("-"+feeString);
+            }else if (bigDecimal.compareTo(BigDecimal.ZERO) < 0) {
+                transaction.setRange("+"+feeString);
+            }else {
+                transaction.setRange("0");
+            }
             transactions.add(transaction);
         }
         return transactions;
