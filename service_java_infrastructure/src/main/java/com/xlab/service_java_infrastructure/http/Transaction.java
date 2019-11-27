@@ -6,7 +6,7 @@ public class Transaction {
 
     private String timestamp;
     private String transactionId;
-    private BigDecimal balance;
+    private String balance;
     private String range;
 
     public String getTimestamp() {
@@ -25,11 +25,11 @@ public class Transaction {
         this.transactionId = transactionId;
     }
 
-    public BigDecimal getBalance() {
+    public String getBalance() {
         return balance;
     }
 
-    public void setBalance(BigDecimal balance) {
+    public void setBalance(String balance) {
         this.balance = balance;
     }
 

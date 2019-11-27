@@ -73,7 +73,9 @@ public class GetAndGenerateExcel {
             row = sheet.createRow(i+1);
             row.createCell(0).setCellValue(transactionList.get(i).getTimestamp());
             row.createCell(1).setCellValue(transactionList.get(i).getTransactionId());
-            row.createCell(2).setCellValue(Double.valueOf(transactionList.get(i).getBalance().toPlainString()));
+            HSSFCell hssfCell = row.createCell(2);
+            hssfCell.setCellType(HSSFCell.CELL_TYPE_STRING);
+            hssfCell.setCellValue(Double.valueOf(transactionList.get(i).getBalance()));
             row.createCell(3).setCellValue(transactionList.get(i).getRange());
         }
 
@@ -90,7 +92,7 @@ public class GetAndGenerateExcel {
     public static List<Transaction> getTransactionList() {
         List<Transaction> transactionList = new ArrayList<>();
 
-        String balanceHistory = doGet("https://qtum.info/api/address/Qc6iYCZWn4BauKXGYirRG8pMtgdHMk2dzn/balance-history?limit=100&offset=0");
+        String balanceHistory = doGet("https://qtum.info/api/address/Qc6iYCZWn4BauKXGYirRG8pMtgdHMk2dzn/balance-history?limit=65535&offset=131070");
         JSONObject  balanceHistoryJson = (JSONObject) JSON.parse(balanceHistory);
         JSONArray jsonArrayBalance = balanceHistoryJson.getJSONArray("transactions");
         Iterator iterator = jsonArrayBalance.iterator();
@@ -111,7 +113,7 @@ public class GetAndGenerateExcel {
             }
 
             transaction.setTransactionId(txid);
-            transaction.setBalance(new BigDecimal(balance));
+            transaction.setBalance(balance);
             transaction.setTimestamp(convertTimeToString(Long.valueOf(timestamp)));
             transactionList.add(transaction);
         }
