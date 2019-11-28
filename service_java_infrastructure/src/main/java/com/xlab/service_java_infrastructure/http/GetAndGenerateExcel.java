@@ -20,6 +20,7 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URI;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -63,11 +64,12 @@ public class GetAndGenerateExcel {
         HSSFCell cell3 = row.createCell(2);
         cell3.setCellValue("账户余额");
         cell3.setCellStyle(style);
+        cell3.setCellType(HSSFCell.CELL_TYPE_STRING);
         HSSFCell cell4 = row.createCell(3);
         cell4.setCellValue("变动");
         cell4.setCellStyle(style);
 
-        List<Transaction> transactionList = getTransactionList();
+        List<Transaction> transactionList = getTransactionList(65535,0);
 
         for (int i=0;i<transactionList.size();i++) {
             row = sheet.createRow(i+1);
@@ -75,7 +77,7 @@ public class GetAndGenerateExcel {
             row.createCell(1).setCellValue(transactionList.get(i).getTransactionId());
             HSSFCell hssfCell = row.createCell(2);
             hssfCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-            hssfCell.setCellValue(Double.valueOf(transactionList.get(i).getBalance()));
+            hssfCell.setCellValue(transactionList.get(i).getBalance());
             row.createCell(3).setCellValue(transactionList.get(i).getRange());
         }
 
@@ -89,34 +91,50 @@ public class GetAndGenerateExcel {
         }
     }
 
-    public static List<Transaction> getTransactionList() {
+    public static List<Transaction> getTransactionList(int limit,int offset) {
         List<Transaction> transactionList = new ArrayList<>();
 
-        String balanceHistory = doGet("https://qtum.info/api/address/Qc6iYCZWn4BauKXGYirRG8pMtgdHMk2dzn/balance-history?limit=65535&offset=131070");
+        String balanceHistory = doGet("https://qtum.info/api/address/Qc6iYCZWn4BauKXGYirRG8pMtgdHMk2dzn/balance-history?limit="+String.valueOf(limit)+"&offset="+String.valueOf(offset));
+
+        if (balanceHistory == null || "".equals(balanceHistory)) {
+            return transactionList;
+        }
+
         JSONObject  balanceHistoryJson = (JSONObject) JSON.parse(balanceHistory);
         JSONArray jsonArrayBalance = balanceHistoryJson.getJSONArray("transactions");
-        Iterator iterator = jsonArrayBalance.iterator();
 
-        while (iterator.hasNext()) {
-            Transaction transaction = new Transaction();
-            JSONObject jsonObject = (JSONObject) iterator.next();
-            String txid = jsonObject.getString("id");
-            String timestamp = jsonObject.getString("timestamp");
-            String amount = jsonObject.getString("amount");
-            String balance = jsonObject.getString("balance");
-            if (new BigDecimal(amount).compareTo(BigDecimal.ZERO) > 0) {
-                transaction.setRange("+" + amount);
-            }else if (new BigDecimal(amount).compareTo(BigDecimal.ZERO) < 0) {
-                transaction.setRange("-" + amount);
-            }else {
-                transaction.setRange("0");
+        if (jsonArrayBalance.size() != 0){
+            Iterator iterator = jsonArrayBalance.iterator();
+
+            while (iterator.hasNext()) {
+                Transaction transaction = new Transaction();
+                JSONObject jsonObject = (JSONObject) iterator.next();
+                String txid = jsonObject.getString("id");
+                String timestamp = jsonObject.getString("timestamp");
+                String amount = jsonObject.getString("amount");
+                String balance = jsonObject.getString("balance");
+                System.out.println(" balance " + balance);
+                if (new BigDecimal(amount).compareTo(BigDecimal.ZERO) > 0) {
+                    String rangeStr = new BigDecimal(amount).divide(new BigDecimal("100000000")).setScale(9,RoundingMode.UNNECESSARY).toPlainString();
+                    transaction.setRange("+" + rangeStr);
+                }else if (new BigDecimal(amount).compareTo(BigDecimal.ZERO) < 0) {
+                    String rangeStr = new BigDecimal(amount).divide(new BigDecimal("100000000")).setScale(9,RoundingMode.UNNECESSARY).toPlainString();
+                    transaction.setRange("-" + rangeStr);
+                }else {
+                    transaction.setRange("0");
+                }
+
+                String balanceFinal = new BigDecimal(balance).divide(new BigDecimal("100000000")).setScale(8,RoundingMode.UNNECESSARY).toPlainString();
+                System.out.println(" balanceFinal " + balanceFinal);
+                transaction.setTransactionId(txid);
+                transaction.setBalance(balanceFinal);
+                transaction.setTimestamp(convertTimeToString(Long.valueOf(timestamp)));
+                transactionList.add(transaction);
             }
 
-            transaction.setTransactionId(txid);
-            transaction.setBalance(balance);
-            transaction.setTimestamp(convertTimeToString(Long.valueOf(timestamp)));
-            transactionList.add(transaction);
+            getTransactionList(limit,offset+limit);
         }
+
         return transactionList;
     }
 
