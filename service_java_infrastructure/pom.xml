@@ -147,6 +147,47 @@
 			<groupId>cryptix-openpgp</groupId>
 			<artifactId>cryptix-message-api</artifactId>
 		</dependency>-->
+		<dependency>
+			<groupId>io.github.novacrypto</groupId>
+			<artifactId>Base58</artifactId>
+			<version>0.1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>io.github.novacrypto</groupId>
+			<artifactId>BIP39</artifactId>
+			<version>0.1.9</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.github.novacrypto</groupId>
+			<artifactId>BIP32</artifactId>
+			<version>0.0.9</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.github.novacrypto</groupId>
+			<artifactId>BIP44</artifactId>
+			<version>0.0.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.briandilley.jsonrpc4j</groupId>
+			<artifactId>jsonrpc4j</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.bitcoinj/bitcoinj-core -->
+		<dependency>
+			<groupId>org.bitcoinj</groupId>
+			<artifactId>bitcoinj-core</artifactId>
+			<version>0.14.7</version>
+		</dependency>
+
+		<!--<dependency>
+			<groupId>info.blockchain</groupId>
+			<artifactId>api</artifactId>
+			<version>LATEST</version>
+		</dependency>-->
 
 		<!--test tomcat-jdbc-->
 		<dependency>
@@ -162,6 +203,29 @@
 			<version>4.5.6</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.madgag.spongycastle</groupId>
+			<artifactId>core</artifactId>
+			<version>1.58.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.madgag.spongycastle</groupId>
+			<artifactId>bcpg-jdk15on</artifactId>
+			<version>1.58.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.web3j</groupId>
+			<artifactId>core</artifactId>
+			<version>3.4.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.proguard</groupId>
+			<artifactId>proguard-base</artifactId>
+			<version>6.0.3</version>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jdbc -->
 		<!--<dependency>
@@ -176,6 +240,10 @@
 			<artifactId>sharding-jdbc-core</artifactId>
 			<version>2.0.3</version>
 		</dependency>-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
 
 	</dependencies>
 
