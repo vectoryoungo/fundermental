@@ -1,6 +1,5 @@
 package com.xlab.service_java_infrastructure.http;
 
-import java.math.BigDecimal;
 
 public class Transaction {
 
