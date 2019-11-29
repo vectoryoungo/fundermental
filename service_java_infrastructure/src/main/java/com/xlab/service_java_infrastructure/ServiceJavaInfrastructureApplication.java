@@ -29,11 +29,11 @@ public class ServiceJavaInfrastructureApplication {
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(ServiceJavaInfrastructureApplication.class, args);
-		Person person = (Person) configurableApplicationContext.getBean("person");
-		System.out.println(person.getName());
-		SimpleAsyncTaskExecutor simpleAsyncTaskExecutor;
-		ScheduledAnnotationBeanPostProcessor scheduledAnnotationBeanPostProcessor;
-		AbstractApplicationContext abstractApplicationContex;
+		//Person person = (Person) configurableApplicationContext.getBean("person");
+		//System.out.println(person.getName());
+		//SimpleAsyncTaskExecutor simpleAsyncTaskExecutor;
+		//ScheduledAnnotationBeanPostProcessor scheduledAnnotationBeanPostProcessor;
+		//AbstractApplicationContext abstractApplicationContex;
 		//configurableApplicationContext.close();
 	}
 }
