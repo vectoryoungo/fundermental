@@ -23,7 +23,7 @@ public class DownloadWithProgressShow {
 
     public static void dowanload(String url, String path)
             throws IOException {
-        System.out.println("下载中...");
+        System.out.println("download...");
         InputStream inputStream = null;
         RandomAccessFile randomAccessFile = null;
         try {
@@ -45,10 +45,10 @@ public class DownloadWithProgressShow {
                 byte[] data = new byte[4096];
                 //用于保存当前进度（具体进度）
                 int progres = 0;
-                //获取文件长度
+                //get file length
                 int maxProgres = urlConnection.getContentLength();
                 randomAccessFile = new RandomAccessFile(file, "rwd");
-                //设置文件大小
+                //set file size
                 randomAccessFile.setLength(maxProgres);
                 //将文件大小分成100分，每一分的大小为unit
                 int unit = maxProgres / 100;
@@ -60,13 +60,13 @@ public class DownloadWithProgressShow {
                     int temp = progres / unit; //计算当前百分比进度
                     if (temp >= 1 && temp > unitProgress) {//如果下载过程出现百分比变化
                         unitProgress = temp;//保存当前百分比
-                        System.out.println("正在下载中..." + unitProgress + "%");
+                        System.out.println("downloading..." + unitProgress + "%");
                     }
                 }
                 inputStream.close();
-                System.out.println("下载完成...");
+                System.out.println("finished...");
             } else {
-                System.out.println("服务器异常...");
+                System.out.println("server error ...");
             }
         } finally {
             if (null != inputStream) {
@@ -79,8 +79,8 @@ public class DownloadWithProgressShow {
     }
 
     public static void main(String[] args) throws IOException {
-        String path = "/Users/juhongtao/image.jpg";
-        String url="http://www.dowei.com/d/file/tuku/meinv/2016-01-26/1453788622507000.jpg";
+        String path = "/Users/oyo03889/image.jpg";
+        String url="https://raw.githubusercontent.com/smuyyh/ImageSelector/master/screenshot/screen_1.png";
         dowanload(url, path);
     }
 }
