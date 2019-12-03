@@ -185,14 +185,9 @@
 		<dependency>
 			<groupId>org.bitcoinj</groupId>
 			<artifactId>bitcoinj-core</artifactId>
-			<version>0.15.5</version>
+			<version>0.14.6</version>
 			<scope>compile</scope>
 		</dependency>
-		<!--<dependency>
-			<groupId>info.blockchain</groupId>
-			<artifactId>api</artifactId>
-			<version>LATEST</version>
-		</dependency>-->
 
 		<!--test tomcat-jdbc-->
 		<dependency>
