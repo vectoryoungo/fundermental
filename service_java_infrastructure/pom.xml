@@ -50,6 +50,7 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
+		<!--crypt-->
 		<dependency>
 			<groupId>cryptix</groupId>
 			<artifactId>cryptix</artifactId>
@@ -61,6 +62,7 @@
 			<version>20050328</version>
 		</dependency>
 
+		<!-- poi operating excel and other files -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
