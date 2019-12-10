@@ -2,6 +2,13 @@
 the java feature programming
 this project include many feactures in java,like java8 lambda encrypt decrypt wallet java annotation use case.
 
+## mq module 
+test all kinds of mq performance. Now inlcude ActiveMQ,RocketMQ,Kafka and so on 
+
+## service_java_infrastructure
+
+many java features 
+
 #### annotation package
 
 use case of java annotation.
