@@ -1,6 +1,6 @@
 
 
-### Compare All Kind of MQ 
+### Compare All Kinds of MQ performances
 
 测试基于Jmeter 5.2.1 GUI 模式下
 
