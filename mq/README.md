@@ -2,6 +2,18 @@
 
 ### Compare All Kinds of MQ performances
 
+#### 测试机器 
+
+型号:MacBook Pro (15-inch, 2019)
+
+CPU:2.6 GHz Intel Core i7
+
+内存:16 GB 2400 MHz DDR4
+
+图形卡:Radeon Pro 555X 4 GB/Intel UHD Graphics 630 1536 MB
+
+硬盘: 256GB SSD 
+
 测试基于Jmeter 5.2.1 GUI 模式下
 
 ActiveMQ Artemis 在1000个线程循环10次的并发情况下的吞吐量在126.8359503817762/sec 异常0%
