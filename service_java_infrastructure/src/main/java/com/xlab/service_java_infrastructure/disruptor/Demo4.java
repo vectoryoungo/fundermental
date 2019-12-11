@@ -4,8 +4,8 @@
  **/
 package com.xlab.service_java_infrastructure.disruptor;
 
-import com.lmax.disruptor.BusySpinWaitStrategy;
 import com.lmax.disruptor.EventFactory;
+import com.lmax.disruptor.YieldingWaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.EventHandlerGroup;
 import com.lmax.disruptor.dsl.ProducerType;
@@ -25,7 +25,7 @@ public class Demo4 {
             public TradeTransaction newInstance() {
                 return new TradeTransaction();
             }
-        }, bufferSize, DaemonThreadFactory.INSTANCE, ProducerType.SINGLE, new BusySpinWaitStrategy());
+        }, bufferSize, DaemonThreadFactory.INSTANCE, ProducerType.SINGLE, new YieldingWaitStrategy());
         //使用disruptor创建消费者组C1,C2
         EventHandlerGroup<TradeTransaction> handlerGroup=disruptor.handleEventsWith(new TradeTransactionVasConsumer(),new TradeTransactionInDBHandler());
 
@@ -41,7 +41,7 @@ public class Demo4 {
         }
         latch.countDown();
         disruptor.shutdown();
-        System.out.println("总耗时:"+(System.currentTimeMillis()-beginTime));
+        System.out.println("总耗时:"+(System.currentTimeMillis()-beginTime)/1000 + " s");
     }
 }
 
