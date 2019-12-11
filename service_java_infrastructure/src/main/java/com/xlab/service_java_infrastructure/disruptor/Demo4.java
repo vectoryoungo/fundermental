@@ -11,12 +11,15 @@ import com.lmax.disruptor.dsl.EventHandlerGroup;
 import com.lmax.disruptor.dsl.ProducerType;
 import com.lmax.disruptor.util.DaemonThreadFactory;
 
+import java.math.BigDecimal;
 import java.util.concurrent.CountDownLatch;
 
 public class Demo4 {
 
     public static void main(String[] args) throws InterruptedException {
         long beginTime=System.currentTimeMillis();
+        String beginStr = String.valueOf(beginTime);
+        BigDecimal start = new BigDecimal(beginStr);
 
         int bufferSize=1024;
         //这个构造函数参数，相信你在了解上面2个demo之后就看下就明白了，不解释了~
@@ -41,7 +44,12 @@ public class Demo4 {
         }
         latch.countDown();
         disruptor.shutdown();
-        System.out.println("总耗时:"+(System.currentTimeMillis()-beginTime)/1000 + " s");
+        long end = System.currentTimeMillis();
+        String endStr = String.valueOf(end);
+        BigDecimal endBig = new BigDecimal(endStr);
+        BigDecimal middle = endBig.subtract(start);
+        BigDecimal finalTime = middle.divide(new BigDecimal("1000"));
+        System.out.println("总耗时:"+ finalTime.toPlainString() + " s");
     }
 }
 
