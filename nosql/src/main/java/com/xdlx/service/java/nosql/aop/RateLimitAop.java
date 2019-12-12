@@ -25,7 +25,7 @@ import java.util.Objects;
 
 @Aspect
 @Component
-public class RateLimiterAop {
+public class RateLimitAop {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
     /**
