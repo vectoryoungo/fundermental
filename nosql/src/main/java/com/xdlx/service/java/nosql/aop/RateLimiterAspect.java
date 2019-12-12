@@ -4,6 +4,7 @@ package com.xdlx.service.java.nosql.aop;
 import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.RateLimiter;
 import com.xdlx.service.java.nosql.annotations.AnRateLimiter;
+import com.xdlx.service.java.nosql.util.ResponseUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -61,7 +62,7 @@ public class RateLimiterAspect {
             boolean acquire = limiter.tryAcquire(rateLimiter.timeout(), rateLimiter.timeunit());
 
             if (!acquire) {
-                responseResult(response, 500, rateLimiter.msg());
+                ResponseUtil.responseResult(response, 500, rateLimiter.msg());
                 return null;
             }
         }
@@ -94,7 +95,7 @@ public class RateLimiterAspect {
      * @param code     响应码
      * @param message  响应信息
      */
-    private void responseResult(HttpServletResponse response, Integer code, String message) {
+    /*private void responseResult(HttpServletResponse response, Integer code, String message) {
         response.resetBuffer();
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Credentials", "true");
@@ -113,5 +114,5 @@ public class RateLimiterAspect {
                 writer.close();
             }
         }
-    }
+    }*/
 }
