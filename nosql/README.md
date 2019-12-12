@@ -1,16 +1,8 @@
-# Getting Started
+# nosql performance test
 
-### Reference Documentation
-For further reference, please consider the following sections:
+### redis
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/maven-plugin/)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/reference/htmlsingle/#boot-features-developing-web-applications)
 
-### Guides
-The following guides illustrate how to use some features concretely:
+redis在 Running in standalone mode version5.0.5版本 64bit环境下，1000Thread循环100次的情况下，存的吞吐是828.5347363188201/sec
 
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
-
+redis在Running in standalone mode version5.0.5版本 64bit环境下，1000Thread循环100次的情况下，取的吞吐量是690.5743506874668/sec
