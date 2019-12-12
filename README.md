@@ -1,17 +1,21 @@
 # fundermental
-the java feature programming
-this project include many feactures in java,like java8 lambda encrypt decrypt wallet java annotation use case.
+Java feature programming
+This project include many feactures in java,like java8 lambda encrypt decrypt wallet java annotation use case.
 
 ## mq module 
-test all kinds of mq performance. Now inlcude ActiveMQ,RocketMQ,Kafka and so on 
+Test all kinds of mq performance. Now inlcude ActiveMQ,RocketMQ,Kafka,RabbitMq
+
+## nosql module
+
+Test nosql performance. Now include redis. Request limit also in there.
 
 ## service_java_infrastructure module
 
-many java features 
+Many java features 
 
 #### annotation package
 
-use case of java annotation.
+Use case of java annotation.
 
 #### architecture package
 
@@ -19,50 +23,50 @@ AIO, BIO ,Netty example and NIO client and server example.
 
 #### basic package 
 
-basic programming in java include: annotation,byte operate,disruptor cpu cacheline example,exception,lock,map,oom,rtjar explore,
+Basic programming in java include: annotation,byte operate,disruptor cpu cacheline example,exception,lock,map,oom,rtjar explore,
 timer, unsafe class and so on.
 
 #### concurrent package 
 
-concurrent use case of FairLock and UnFairLock,Reentrant lock Synchronized,volatile and so on 
+Concurrent use case of FairLock and UnFairLock,Reentrant lock Synchronized,volatile and so on 
 
 #### crypto package
 
-crypto algorithm Abe.
+Crypto algorithm Abe.
 
 This crypto is a combination of using JCPABE(https://github.com/TU-Berlin-SNET/JCPABE.git) and jTR-ABE(https://github.com/TU-Berlin-SNET/jTR-ABE),Thanks for all of those great people.
 
 #### cryptofficial package 
 
-official use case of jpbc
+Official use case of jpbc
 
 #### customerclassloader package 
 
-classloader use case 
+Classloader use case 
 
 #### deepthinkdesignpattern package 
 
-the book: design pattern code and example 
+The book: design pattern code and example 
 
 #### disruptor package 
 
-disruptor use case .
+Disruptor use case .
 
 #### downloadprocess package 
 
-download file with prograss show 
+Download file with prograss show 
 
 #### easycoding package 
 
-alibaba easycodeing book example 
+Alibaba easycodeing book example 
 
 #### effective8 package 
 
-java8 effective 
+Java8 effective 
 
 #### filedivide package 
 
-file divide: why do this ? because fabric can not upload large file so we need cut file into many pieces that could upload to ipfs.
+File divide: why do this ? because fabric can not upload large file so we need cut file into many pieces that could upload to ipfs.
 
 #### java8chapter1 package 
 
@@ -106,27 +110,27 @@ java8 in action chapter 12
 
 #### logt package 
 
-log write use case : not concat string but use place holder instead .
+Log write use case : not concat string but use place holder instead .
 
 #### refactor package 
 
-refactor use case 
+Refactor use case 
 
 #### review package 
 
-basic java test 
+Basic java test 
 
 #### spring package 
 
-spring feature explorer 
+Spring feature explorer 
 
 #### swingembedbrowse
 
-swing embeded internet explorer 
+Swing embeded internet explorer 
 
 #### thinkingjavageneric package
 
-the book thinking in java fourth edition partion code.
+The book thinking in java fourth edition partion code.
 
 
 
