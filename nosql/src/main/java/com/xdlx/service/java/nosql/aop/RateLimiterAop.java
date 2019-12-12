@@ -19,15 +19,13 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Objects;
 
 @Aspect
 @Component
-public class RateLimiterAspect {
+public class RateLimiterAop {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
     /**
@@ -87,32 +85,4 @@ public class RateLimiterAspect {
         }
         return null;
     }
-
-    /**
-     * 自定义响应结果
-     *
-     * @param response 响应
-     * @param code     响应码
-     * @param message  响应信息
-     */
-    /*private void responseResult(HttpServletResponse response, Integer code, String message) {
-        response.resetBuffer();
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        PrintWriter writer = null;
-        try {
-            writer = response.getWriter();
-            writer.println("{\"code\":" + code + " ,\"message\" :\"" + message + "\"}");
-            response.flushBuffer();
-        } catch (IOException e) {
-            logger.error(" 输入响应出错 e = {}", e.getMessage(), e);
-        } finally {
-            if (writer != null) {
-                writer.flush();
-                writer.close();
-            }
-        }
-    }*/
 }
