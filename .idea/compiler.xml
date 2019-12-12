@@ -7,11 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="mq" />
+        <module name="nosql" />
         <module name="service_java_infrastructure" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="mq" target="1.8" />
+      <module name="nosql" target="1.8" />
       <module name="service_java_infrastructure" target="1.8" />
     </bytecodeTargetLevel>
   </component>
