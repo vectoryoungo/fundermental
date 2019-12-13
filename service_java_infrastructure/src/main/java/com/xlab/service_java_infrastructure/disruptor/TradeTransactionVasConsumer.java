@@ -12,8 +12,8 @@ public class TradeTransactionVasConsumer implements EventHandler<TradeTransactio
     public void onEvent(TradeTransaction event, long sequence,
                         boolean endOfBatch) throws Exception {
         //do something....
-        System.out.println("TradeTransaction id " + event.getId());
-        System.out.println("TradeTransaction price " + event.getPrice());
+        System.out.println("TradeTransactionVasConsumer TradeTransaction id " + event.getId());
+        System.out.println("TradeTransactionVasConsumer TradeTransaction price " + event.getPrice());
     }
 }
 

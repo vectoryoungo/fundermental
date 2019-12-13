@@ -19,11 +19,11 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
-@Configuration
-@EnableAsync
+//@Configuration
+//@EnableAsync
 public class OmniTaskPoolConfig {
 
-    @Bean("taskExecutor")
+    //@Bean("taskExecutor")
     public Executor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(10);

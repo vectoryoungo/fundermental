@@ -26,7 +26,7 @@ public class ICoinUsdtServiceImpl implements ICoinUsdtService {
 
     private Logger log = LoggerFactory.getLogger(ICoinUsdtServiceImpl.class);
 
-    @Scheduled(fixedRate = 1000)
+    //@Scheduled(fixedRate = 1000)
     @Override
     public void jobScan1() {
         for (int i=0;i<100;i++) {
@@ -41,8 +41,8 @@ public class ICoinUsdtServiceImpl implements ICoinUsdtService {
 //        System.out.println("jobScan1 running... " + Thread.currentThread().getName());
     }
 
-    @Scheduled(fixedRate = 2000)
-    @Async("taskExecutor")
+    //@Scheduled(fixedRate = 2000)
+    //@Async("taskExecutor")
     public void jobScan2() {
         System.out.println("jobScan2 running... start " + Thread.currentThread().getName());
         try {
