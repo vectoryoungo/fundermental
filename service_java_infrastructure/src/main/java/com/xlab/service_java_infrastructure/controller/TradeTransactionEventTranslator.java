@@ -2,6 +2,7 @@ package com.xlab.service_java_infrastructure.controller;
 
 import com.lmax.disruptor.EventTranslator;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class TradeTransactionEventTranslator implements EventTranslator<TradeTransaction> {
@@ -20,8 +21,23 @@ public class TradeTransactionEventTranslator implements EventTranslator<TradeTra
 
         //买
         if (orderDTO.getOrderType() == 1) {
+
+            Comparator<Trade> buy = new Comparator<Trade>() {
+                @Override
+                public int compare(Trade o1, Trade o2) {
+
+                    if (o1.getPrice() - o2.getPrice() > 0 ){
+                        return -1;
+                    }else if (o1.getPrice() - o2.getPrice() < 0) {
+                        return 1;
+                    }else {
+                        return 0;
+                    }
+                }
+            };
+
             if (buyer == null) {
-                buyer = new PriorityQueue<Trade>();
+                buyer = new PriorityQueue<Trade>(buy);
             }
             Trade trade = new Trade();
             trade.setAmount(orderDTO.getAmount());
@@ -32,8 +48,20 @@ public class TradeTransactionEventTranslator implements EventTranslator<TradeTra
             event.setBuyer(buyer);
             //卖
         }else if (orderDTO.getOrderType() == 2) {
+            Comparator<Trade> sell = new Comparator<Trade>() {
+                @Override
+                public int compare(Trade o1, Trade o2) {
+                    if (o1.getPrice() - o2.getPrice() > 0) {
+                        return 1;
+                    }else if (o1.getPrice() - o2.getPrice() < 0) {
+                        return -1;
+                    }else {
+                        return 0;
+                    }
+                }
+            };
             if (seller == null) {
-                seller = new PriorityQueue<Trade>();
+                seller = new PriorityQueue<Trade>(sell);
             }
             Trade trade = new Trade();
             trade.setAmount(orderDTO.getAmount());
