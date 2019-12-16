@@ -12,17 +12,30 @@ import org.springframework.web.bind.annotation.RestController;
 public class DisruptorController {
 
     private TradeTransactionEventTranslator tradeTransactionEventTranslator;
+    private TradeTransactionMatchConsumer tradeTransactionMatchConsumer;
+    private TradeTransactionBuyConsumer transactionBuyConsumer;
+    private TradeTransactionSellConsumer tradeTransactionSellConsumer;
     @RequestMapping(value = "/addOrder",method = RequestMethod.POST)
     public boolean addOrder(OrderDTO orderDTO) {
         TradeEventFactory tradeEventFactory = new TradeEventFactory(orderDTO);
         DisruptorUtil disruptorUtil = new DisruptorUtil(tradeEventFactory);
         Disruptor<TradeTransaction> disruptor = disruptorUtil.getDisruptor();
-        //使用disruptor创建消费者组C1,C2
-        EventHandlerGroup<TradeTransaction> handlerGroup=disruptor.handleEventsWith(new TradeTransactionBuyConsumer(),new TradeTransactionSellConsumer());
 
-        TradeTransactionMatchConsumer matchConsumer=new TradeTransactionMatchConsumer();
+        if (transactionBuyConsumer == null) {
+            transactionBuyConsumer = new TradeTransactionBuyConsumer();
+        }
+
+        if (tradeTransactionSellConsumer == null) {
+            tradeTransactionSellConsumer = new TradeTransactionSellConsumer();
+        }
+        //使用disruptor创建消费者组C1,C2
+        EventHandlerGroup<TradeTransaction> handlerGroup=disruptor.handleEventsWith(transactionBuyConsumer,tradeTransactionSellConsumer);
+
+        if (tradeTransactionMatchConsumer == null) {
+            tradeTransactionMatchConsumer = new TradeTransactionMatchConsumer();
+        }
         //声明在C1,C2完事之后执行JMS消息发送操作 也就是流程走到C3
-        handlerGroup.then(matchConsumer);
+        handlerGroup.then(tradeTransactionMatchConsumer);
         disruptor.start();
 
         if (tradeTransactionEventTranslator == null) {
