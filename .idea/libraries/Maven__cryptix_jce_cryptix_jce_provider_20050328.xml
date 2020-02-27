@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: cryptix-jce:cryptix-jce-provider:20050328">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/cryptix-jce/cryptix-jce-provider/20050328/cryptix-jce-provider-20050328.jar!/" />
+      <root url="jar://$USER_HOME$/mavlib/cryptix-jce/cryptix-jce-provider/20050328/cryptix-jce-provider-20050328.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/cryptix-jce/cryptix-jce-provider/20050328/cryptix-jce-provider-20050328-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/mavlib/cryptix-jce/cryptix-jce-provider/20050328/cryptix-jce-provider-20050328-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/cryptix-jce/cryptix-jce-provider/20050328/cryptix-jce-provider-20050328-sources.jar!/" />
+      <root url="jar://$USER_HOME$/mavlib/cryptix-jce/cryptix-jce-provider/20050328/cryptix-jce-provider-20050328-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
