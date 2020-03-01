@@ -31,7 +31,7 @@ public class AmericanProxy implements MethodInterceptor{
     /**
      * proxy CGlib根据父类生成的代理对象
      * method 拦截的方法
-     * args 拦截方法的参数组
+     * args 拦截方法的参数数组
      * methodProxy 方法的代理对象，用于执行父类的方法
      */
     @Override
