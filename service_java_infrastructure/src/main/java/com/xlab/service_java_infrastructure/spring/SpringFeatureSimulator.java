@@ -16,13 +16,11 @@ import org.springframework.aop.framework.AopProxy;
 import org.springframework.aop.framework.ReflectiveMethodInvocation;
 import org.springframework.beans.BeanMetadataAttributeAccessor;
 import org.springframework.beans.BeanMetadataElement;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.FactoryBean;
-import org.springframework.beans.factory.HierarchicalBeanFactory;
-import org.springframework.beans.factory.ListableBeanFactory;
+import org.springframework.beans.factory.*;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessorAdapter;
+import org.springframework.beans.factory.config.Scope;
 import org.springframework.beans.factory.support.*;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.boot.autoconfigure.transaction.PlatformTransactionManagerCustomizer;
@@ -205,6 +203,11 @@ public class SpringFeatureSimulator {
      */
     public void springClassStructureExplorer() {
         BeanFactory beanFactory;//the basic interface of spring
+
+        //This interface is typically used to encapsulate a generic factory which
+        //returns a new instance (prototype) of some target object on each invocation.
+        // ObjectFactory则只是一个普通的对象工厂接口。
+        ObjectFactory objectFactory;
 
         //A bean that implements this interface cannot be used as a normal bean
         //This interface is heavily used within the framework itself, for example for
