@@ -209,8 +209,8 @@ public class SpringFeatureSimulator {
         // ObjectFactory则只是一个普通的对象工厂接口。
         ObjectFactory objectFactory;
 
-        //A bean that implements this interface cannot be used as a normal bean
-        //This interface is heavily used within the framework itself, for example for
+        // A bean that implements this interface cannot be used as a normal bean
+        // This interface is heavily used within the framework itself, for example for
         // the AOP org.springframework.aop.framework.ProxyFactoryBean or the
         // org.springframework.jndi.JndiObjectFactoryBean.
         // It can be used for custom components as well; however, this is only common for infrastructure code.
