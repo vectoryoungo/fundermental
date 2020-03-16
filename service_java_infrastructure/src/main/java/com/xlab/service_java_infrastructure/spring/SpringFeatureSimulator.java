@@ -17,6 +17,7 @@ import org.springframework.aop.framework.ReflectiveMethodInvocation;
 import org.springframework.beans.BeanMetadataAttributeAccessor;
 import org.springframework.beans.BeanMetadataElement;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.HierarchicalBeanFactory;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
@@ -196,6 +197,23 @@ public class SpringFeatureSimulator {
      */
     public void springClassStructureExplorer() {
         BeanFactory beanFactory;//the basic interface of spring
+
+        //A bean that implements this interface cannot be used as a normal bean
+        //This interface is heavily used within the framework itself, for example for
+        // the AOP org.springframework.aop.framework.ProxyFactoryBean or the
+        // org.springframework.jndi.JndiObjectFactoryBean.
+        // It can be used for custom components as well; however, this is only common for infrastructure code.
+        // FactoryBean is a programmatic contract. Implementations are not
+        // supposed to rely on annotation-driven injection or other reflective facilities.
+        // getObjectType() getObject() invocations may arrive early in
+        // the bootstrap process, even ahead of any post-processor setup. If you need access
+        // other beans, implement BeanFactoryAware and obtain them programmatically.
+        // Finally, FactoryBean objects participate in the containing BeanFactory's
+        // synchronization of bean creation. There is usually no need for internal
+        // synchronization other than for purposes of lazy initialization within the
+        // FactoryBean itself (or the like).
+        FactoryBean factoryBean;
+
         ListableBeanFactory listableBeanFactory;//the child of BeanFactory
         HierarchicalBeanFactory hierarchicalBeanFactory;//the child of BeanFactory
         AutowireCapableBeanFactory autowireCapableBeanFactory;//the child of BeanFactory
