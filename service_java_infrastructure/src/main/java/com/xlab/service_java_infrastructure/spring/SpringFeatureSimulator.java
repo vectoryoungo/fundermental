@@ -53,6 +53,11 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AbstractRefreshableWebApplicationContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
+
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.*;
 
@@ -60,30 +65,33 @@ import java.util.concurrent.locks.*;
 public class SpringFeatureSimulator {
 
     public static void main(String[] args) {
-        AttributeAccessor attributeAccessor;
-        AttributeAccessorSupport attributeAccessorSupport;
-        BeanDefinition beanDefinition;
-        BeanMetadataAttributeAccessor beanMetadataAttributeAccessor;
-        BeanMetadataElement beanMetadataElement;
-        AbstractBeanDefinition abstractBeanDefinition;
-        RootBeanDefinition rootBeanDefinition;
-        BeanDefinitionReader beanDefinitionReader;
-        XmlBeanDefinitionReader xmlBeanDefinitionReader;
-        ConcurrentHashMap concurrentHashMap = new ConcurrentHashMap(256);
-        DefaultListableBeanFactory defaultListableBeanFactory;
-        RejectedExecutionHandler rejectedExecutionHandler;
-        PlatformTransactionManagerCustomizer platformTransactionManagerCustomizer;
-        ContextLoaderListener contextLoaderListener;
-        ClassPathScanningCandidateComponentProvider classPathScanningCandidateComponentProvider;
-        InstantiationAwareBeanPostProcessorAdapter instantiationAwareBeanPostProcessorAdapter;
-        PoolProperties poolProperties = new PoolProperties();
-        AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext();
-        annotationConfigApplicationContext.register(SpringFeatureSimulator.class);
-        annotationConfigApplicationContext.refresh();
-        InjectionInnerClass injectionInnerClass = annotationConfigApplicationContext.getBean(InjectionInnerClass.class);
-        injectionInnerClass.msgNotification();
-        PropertySource propertySource;
-        Environment environment;
+//        AttributeAccessor attributeAccessor;
+//        AttributeAccessorSupport attributeAccessorSupport;
+//        BeanDefinition beanDefinition;
+//        BeanMetadataAttributeAccessor beanMetadataAttributeAccessor;
+//        BeanMetadataElement beanMetadataElement;
+//        AbstractBeanDefinition abstractBeanDefinition;
+//        RootBeanDefinition rootBeanDefinition;
+//        BeanDefinitionReader beanDefinitionReader;
+//        XmlBeanDefinitionReader xmlBeanDefinitionReader;
+//        ConcurrentHashMap concurrentHashMap = new ConcurrentHashMap(256);
+//        DefaultListableBeanFactory defaultListableBeanFactory;
+//        RejectedExecutionHandler rejectedExecutionHandler;
+//        PlatformTransactionManagerCustomizer platformTransactionManagerCustomizer;
+//        ContextLoaderListener contextLoaderListener;
+//        ClassPathScanningCandidateComponentProvider classPathScanningCandidateComponentProvider;
+//        InstantiationAwareBeanPostProcessorAdapter instantiationAwareBeanPostProcessorAdapter;
+//        PoolProperties poolProperties = new PoolProperties();
+//        AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext();
+//        annotationConfigApplicationContext.register(SpringFeatureSimulator.class);
+//        annotationConfigApplicationContext.refresh();
+//        InjectionInnerClass injectionInnerClass = annotationConfigApplicationContext.getBean(InjectionInnerClass.class);
+//        injectionInnerClass.msgNotification();
+//        PropertySource propertySource;
+//        Environment environment;
+          showOrderInfo(null,skipListMapSimulator(10));
+          showOrderInfo(skipListSetSimulator(10),null);
+
     }
 
     @VectorComponent
@@ -394,10 +402,64 @@ public class SpringFeatureSimulator {
 
     }
 
+    private static Map<Integer,String> skipListMapSimulator(int size) {
+
+        //此处参数传进来会造成装箱操作
+        Map<Integer,String> serialOrderIDInfo = new ConcurrentSkipListMap<Integer,String>();
+
+        if (size == 0) return null;
+
+        //over size
+        if (size >= 100) return null;
+
+        Random random = new Random(47);
+        for (int i=1;i<=size;i++) {
+            int interval = random.nextInt(i);
+            serialOrderIDInfo.put(interval,interval+"orderSequence");
+        }
+
+        return serialOrderIDInfo;
+    }
+
+    private static Set<Integer> skipListSetSimulator(int size) {
+
+        if (size == 0) return null;
+
+        if (size >= 100) return null;
+
+        Set<Integer> serialOrderIDInfo = new ConcurrentSkipListSet<>();
+        Random random = new Random(47);
+        for (int i=1;i<=size;i++) {
+            serialOrderIDInfo.add(random.nextInt(i));
+        }
+
+        return serialOrderIDInfo;
+    }
+
+    private static void showOrderInfo(Set<Integer> goods,Map<Integer,String> orderGoods) {
+
+
+        if (goods != null && goods.size() > 0) {
+            Iterator<Integer> goodsInteger = goods.iterator();
+            while (goodsInteger.hasNext()) {
+                System.out.println("set skip list: " + goodsInteger.next());
+            }
+        }
+
+        if (orderGoods != null && orderGoods.size() > 0) {
+
+            for (Integer content:orderGoods.keySet()) {
+                System.out.println("map skip list: " + orderGoods.get(content));
+            }
+        }
+
+    }
+
+
     /**
      * 探索Java Concurrent包下并发的使用场景以及性能
      */
-    public void lockClassExplorer() {
+    private void lockClassExplorer() {
         AbstractOwnableSynchronizer abstractOwnableSynchronizer;
         AbstractQueuedLongSynchronizer abstractQueuedLongSynchronizer;
         AbstractQueuedSynchronizer abstractQueuedSynchronizer;
@@ -410,7 +472,14 @@ public class SpringFeatureSimulator {
         CountDownLatch countDownLatch;
         CopyOnWriteArraySet copyOnWriteArraySet;
         CopyOnWriteArrayList copyOnWriteArrayList;
+
+        /**
+         * 跳跃表的应用，在功能上对应HashTable、HashMap、TreeMap
+         */
         ConcurrentSkipListMap concurrentSkipListMap;
+        /**
+         * 跳跃表的应用，在功能上对应HashSet.
+         */
         ConcurrentSkipListSet concurrentSkipListSet;
         ConcurrentNavigableMap concurrentNavigableMap;
         ConcurrentMap concurrentMap;
