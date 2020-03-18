@@ -65,7 +65,7 @@ public class Client4Demo {
         ChannelFuture channelFuture = null;
 
         client4Demo = new Client4Demo();
-        channelFuture = client4Demo.doRequest("localhost",9999,new Client4DemoHanlder());
+        channelFuture = client4Demo.doRequest("localhost",9999,new Client4DemoHandler());
         Scanner scanner = null;
 
         try {
