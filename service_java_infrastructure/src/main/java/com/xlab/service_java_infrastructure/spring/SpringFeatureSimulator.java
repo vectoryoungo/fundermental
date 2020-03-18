@@ -22,7 +22,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessorAdapter;
 import org.springframework.beans.factory.config.Scope;
 import org.springframework.beans.factory.support.*;
-import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.beans.factory.xml.*;
 import org.springframework.boot.autoconfigure.transaction.PlatformTransactionManagerCustomizer;
 import org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration;
 import org.springframework.cglib.proxy.MethodInterceptor;
@@ -73,7 +73,7 @@ public class SpringFeatureSimulator {
 //        BeanDefinitionReader beanDefinitionReader;
 //        XmlBeanDefinitionReader xmlBeanDefinitionReader;
 //        ConcurrentHashMap concurrentHashMap = new ConcurrentHashMap(256);
-//        DefaultListableBeanFactory defaultListableBeanFactory;
+//
 //        RejectedExecutionHandler rejectedExecutionHandler;
 //        PlatformTransactionManagerCustomizer platformTransactionManagerCustomizer;
 //        ContextLoaderListener contextLoaderListener;
@@ -228,6 +228,7 @@ public class SpringFeatureSimulator {
         ListableBeanFactory listableBeanFactory;//the child of BeanFactory
         HierarchicalBeanFactory hierarchicalBeanFactory;//the child of BeanFactory
         AutowireCapableBeanFactory autowireCapableBeanFactory;//the child of BeanFactory
+        DefaultListableBeanFactory defaultListableBeanFactory;//
         DefaultSingletonBeanRegistry defaultSingletonBeanRegistry;
 
         // this interface is the top of Spring and provide many other features like:MessageSource ResourcePatternResolver ApplicationEventPublisher
@@ -402,6 +403,24 @@ public class SpringFeatureSimulator {
         // spring中提供WebApplicationContextUtils的getWebApplicationContext(ServletContext serviceContext)方法来获得XMLWebApplicationContext对象。
         // ContextLoaderListener和DispatcherServlet 会创建XMLWebApplicationContext容器，但是ContextLoaderListener监听器初始化完毕后，才会初始化Servlet
         XmlWebApplicationContext xmlWebApplicationContext;
+
+        //专门加载解析配置文件的类
+        BeanDefinitionReader beanDefinitionReader;
+
+        //加载XML的策略接口,默认实现类DefaultDocumentLoader
+        DocumentLoader documentLoader;
+
+        //SPI for parsing an XML document that contains Spring bean definitions.
+        // 默认实现类DefaultBeanDefinitionDocumentReader根据 "spring-beans" DTD and XSD 格式读取bean 的定义。
+        BeanDefinitionDocumentReader beanDefinitionDocumentReader;
+
+        //解析<bean>中的元素
+        BeanDefinitionParserDelegate beanDefinitionParserDelegate;
+
+        //BeanDefinitionDocumentReader的默认实现类，解析转换成Document的<bean>
+        DefaultBeanDefinitionDocumentReader defaultBeanDefinitionDocumentReader;
+
+
 
     }
 
