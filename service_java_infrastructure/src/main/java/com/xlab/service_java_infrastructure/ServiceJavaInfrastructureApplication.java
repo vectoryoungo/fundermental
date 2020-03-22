@@ -9,9 +9,11 @@
 
 package com.xlab.service_java_infrastructure;
 
+import com.xlab.service_java_infrastructure.config.VectorConfig;
 import com.xlab.service_java_infrastructure.spring.Person;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -24,10 +26,11 @@ import org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProc
 
 @EnableScheduling
 @EnableAsync
-@SpringBootApplication
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 public class ServiceJavaInfrastructureApplication {
 
 	public static void main(String[] args) {
+
 		ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(ServiceJavaInfrastructureApplication.class, args);
 		//Person person = (Person) configurableApplicationContext.getBean("person");
 		//System.out.println(person.getName());
@@ -35,5 +38,8 @@ public class ServiceJavaInfrastructureApplication {
 		//ScheduledAnnotationBeanPostProcessor scheduledAnnotationBeanPostProcessor;
 		//AbstractApplicationContext abstractApplicationContex;
 		//configurableApplicationContext.close();
+		VectorConfig vectorConfig = configurableApplicationContext.getBean(VectorConfig.class);
+		vectorConfig.getVector();
+
 	}
 }

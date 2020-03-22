@@ -87,8 +87,8 @@ public class SpringFeatureSimulator {
 //        injectionInnerClass.msgNotification();
 //        PropertySource propertySource;
 //        Environment environment;
-          showOrderInfo(null,skipListMapSimulator(10));
-          showOrderInfo(skipListSetSimulator(10),null);
+//          showOrderInfo(null,skipListMapSimulator(10));
+//          showOrderInfo(skipListSetSimulator(10),null);
 
     }
 
@@ -181,6 +181,14 @@ public class SpringFeatureSimulator {
         //5.ThreadLocal<Integer> currentTransactionIsolationLevel = new NamedThreadLocal<>("Current transaction isolation level");当前事务隔离级别
         //6.ThreadLocal<Boolean> actualTransactionActive = new NamedThreadLocal<>("Actual transaction active");是否存在物理事务，比如传播行为为NOT_SUPPORTED时就会是false。
         TransactionSynchronizationManager transactionSynchronizationManager;
+    }
+
+    /**
+     * explore exception in spring
+     */
+    public void springExceptionExplorer() {
+        //
+        BeanCurrentlyInCreationException beanCurrentlyInCreationException;
     }
 
     /**
@@ -419,6 +427,12 @@ public class SpringFeatureSimulator {
 
         //BeanDefinitionDocumentReader的默认实现类，解析转换成Document的<bean>
         DefaultBeanDefinitionDocumentReader defaultBeanDefinitionDocumentReader;
+
+        //
+        AbstractAutowireCapableBeanFactory abstractAutowireCapableBeanFactory;
+
+        //
+        AbstractBeanFactory abstractBeanFactory;
 
 
 
