@@ -7,7 +7,7 @@
 
 /**
  * @create 2020-03-25 10:31
- * @desc test two thread output char
+ * @desc test two thread output char 对一个对象调用wait()方法，不是让这个对象去wait，而是让持有这个对象的锁的线程去wait。
  **/
 package com.xlab.service_java_infrastructure.concurrent;
 
