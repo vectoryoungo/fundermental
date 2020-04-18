@@ -139,7 +139,6 @@ public class LogPerformanceSimulator {
 
     public static void main(String[] args) {
         showPerformaceLog("vector" ,"update user balance",1);
-        //System.out.println(" it takes " + TimeUnit.NANOSECONDS.toSeconds(estimatedTime));
     }
 }
 
