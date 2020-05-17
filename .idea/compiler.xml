@@ -10,6 +10,7 @@
         <module name="nosql" />
         <module name="service_java_infrastructure" />
         <module name="ws" />
+        <module name="xdb" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -17,6 +18,7 @@
       <module name="nosql" target="1.8" />
       <module name="service_java_infrastructure" target="1.8" />
       <module name="ws" target="1.8" />
+      <module name="xdb" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

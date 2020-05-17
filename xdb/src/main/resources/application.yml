@@ -1,0 +1,17 @@
+# 数据源
+spring:
+    datasource:
+       # master数据源配置
+       master:
+        driverClassName: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/mybatistao?useUnicode=true&characterEncoding=utf-8
+        username: root
+        password: 854792
+       # cluster数据源配置
+       cluster:
+        driverClassName: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/sh_tony?useUnicode=true&characterEncoding=utf-8
+        username: root
+        password: 854792
+server:
+  port: 8080
