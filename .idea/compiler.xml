@@ -13,7 +13,7 @@
         <module name="xdb" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.8">
       <module name="mq" target="1.8" />
       <module name="nosql" target="1.8" />
       <module name="service_java_infrastructure" target="1.8" />

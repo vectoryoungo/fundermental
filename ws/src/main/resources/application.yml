@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: ws
+server:
+  port: 8080
+#****************集成Async线程池开始*******************
+async: # Async线程池 配置
+ executor:
+  corepoolsize: 20
+  maxpoolsize: 25
+  queuecapacity: 40
+  keepaliveseconds: 200
+  threadnameprefix: appasync
+  awaitterminationseconds: 60
+#*****************集成Async线程池结束******************
