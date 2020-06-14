@@ -11,14 +11,24 @@
  **/
 package com.xlab.service_java_infrastructure.concurrent;
 
+import java.math.BigInteger;
+import java.util.List;
+
 public class PrimeGeneratorSimulator {
 
     public static void main(String[] args) {
-        for (int i =0;i<10;i++) {
-            PrimeGenerator primeGenerator = new PrimeGenerator();
-            new Thread(primeGenerator).start();
-            primeGenerator.cancel();
+
+        PrimeGenerator primeGenerator = new PrimeGenerator();
+        new Thread(primeGenerator).start();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        List<BigInteger> result = primeGenerator.get();
+        System.out.println(result.size());
+        primeGenerator.cancel();
+        System.out.println(primeGenerator.get());
     }
 }
 
