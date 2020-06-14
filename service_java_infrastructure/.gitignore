@@ -20,6 +20,7 @@ a.mkey
 a.pkey
 adec.txt
 user.private
+log
 
 ### NetBeans ###
 /nbproject/private/
@@ -28,3 +29,4 @@ user.private
 /dist/
 /nbdist/
 /.nb-gradle/
+/log
