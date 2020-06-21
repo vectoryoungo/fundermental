@@ -15,8 +15,9 @@
  **/
 package com.xlab.service_java_infrastructure.concurrent;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
+import sun.jvm.hotspot.utilities.AssertionFailure;
+
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class BoundedExecutorSimulator {
@@ -40,6 +41,31 @@ public class BoundedExecutorSimulator {
                 e.printStackTrace();
             }
         }
+
+        TimingThreadPool timingThreadPool = new TimingThreadPool(cpu,cpu,cpu, TimeUnit.SECONDS,new LinkedBlockingQueue<Runnable>());
+
+        for (int i = 0;i<10;i++) {
+            timingThreadPool.beforeExecute(new Thread(), new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println(Thread.currentThread().getName()+" is running......");
+                }
+            });
+            timingThreadPool.afterExecute(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("after Execute " + Thread.currentThread().getName()+" is running");
+                }
+            },new Throwable());
+            timingThreadPool.execute(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println(Thread.currentThread().getName()+ " start ");
+                }
+            });
+            timingThreadPool.terminated();
+        }
+
     }
 }
 
