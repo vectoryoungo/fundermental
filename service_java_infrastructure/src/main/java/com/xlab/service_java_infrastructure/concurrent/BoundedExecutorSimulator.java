@@ -15,8 +15,8 @@
  **/
 package com.xlab.service_java_infrastructure.concurrent;
 
-import sun.jvm.hotspot.utilities.AssertionFailure;
-
+import com.xlab.service_java_infrastructure.deepthinkdesignpattern.chapter25.Element;
+import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -65,7 +65,6 @@ public class BoundedExecutorSimulator {
             });
             timingThreadPool.terminated();
         }
-
     }
 }
 
